@@ -2,6 +2,10 @@ import pandas as pd
 import numpy as np
 from copy import deepcopy 
 
+# uploading BBL population estimates
+
+population_estimates = pd.read_csv('data/bbl-population-estimates.csv')
+
 # NYC-level numbers for each demographic
 
 nyc_wide_estimates = pd.read_csv('data/nyc-wide_estimates.csv', index_col='NYC')
@@ -18,7 +22,7 @@ neighborhood_geographies = pd.read_csv('data/neighborhood-geographies.csv', inde
 borough_geographies = pd.read_csv('data/borough-geographies.csv', index_col='borough')
 
 # all available demographic estimates (variable codes are used by get_demo_estimates() to pull estimates from datasets)
-# variables from https://api.census.gov/data/2021/acs/acs5/profile/variables.html
+# from https://api.census.gov/data/2021/acs/acs5/profile/variables.html
 
 census_demo_variables = {'DP05_0071PE':'% Hispanic or Latino',
                            'DP05_0076PE':'% Not Hispanic or Latino',
@@ -160,14 +164,31 @@ def get_demo_estimates(var_code_list, geo, polygons = False, download = False, d
 
 ####################################
 
+# outputs a df with population estimates and residential units by BBL, along with various geographies
+
+def get_bbl_estimates(pop_est_df = population_estimates):
+    
+    return pop_est_df
+
+####################################
+
 # outputs the available variables and their census api codes
 
-def view_variables(demo_dict = census_demo_variables):
+def view_variables(as_df = True, demo_dict = census_demo_variables):
     
 # demo_dict: the dict of available variable codes
-    
-    for key in demo_dict.keys(): 
-    
-        print(demo_dict[key][2:], ':', key) # print each code/ variable name pairing 
+
+    if as_df: # convert demo_dict to a df
         
-    return
+        variable_df = pd.DataFrame(demo_dict.items(), columns=['var_code', 'var_name']) # df of each code/ variable name pairing 
+        variable_df['var_name'] =  variable_df['var_name'].apply(lambda x: x[2:]) # removing % from beginning of variable names
+        
+        return variable_df
+    
+    else: # otherwise, just print the pairings out
+        
+        for key in demo_dict.keys(): 
+    
+            print(key, ':', demo_dict[key][2:])
+        
+        return 
