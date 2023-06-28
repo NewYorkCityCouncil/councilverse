@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
 from copy import deepcopy 
-from geopandas import GeoDataFrame
-from shapely import wkt
 
 # NYC-level numbers for each demographic
 
