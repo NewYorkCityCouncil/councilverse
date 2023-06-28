@@ -17,8 +17,8 @@ precinct_geographies = pd.read_csv('data/precinct-geographies.csv', index_col='p
 neighborhood_geographies = pd.read_csv('data/neighborhood-geographies.csv', index_col='nta')
 borough_geographies = pd.read_csv('data/borough-geographies.csv', index_col='borough')
 
-# all available demographic estimate (variable codes are used by get_demo_estimates() to pull estimates from datasets)
-# from https://api.census.gov/data/2021/acs/acs5/profile/variables.html
+# all available demographic estimates (variable codes are used by get_demo_estimates() to pull estimates from datasets)
+# variables from https://api.census.gov/data/2021/acs/acs5/profile/variables.html
 
 census_demo_variables = {'DP05_0071PE':'% Hispanic or Latino',
                            'DP05_0076PE':'% Not Hispanic or Latino',
@@ -137,7 +137,7 @@ def get_demo_estimates(var_code_list, geo, polygons = False, download = False, d
             
         col_name_list.append(col_name) # add estimate column
         col_name_list.append(col_name + ' MOE') # add margin of error column
-        col_name_list.append(col_name + ' CV') # add coefficient or variation column
+        col_name_list.append(col_name + ' CV') # add coefficient of variation column
                 
     col_name_list.append('Total population') # add Total population column
     
