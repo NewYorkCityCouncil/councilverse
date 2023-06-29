@@ -1,6 +1,6 @@
 #' View available census variables and their descriptions
 #'
-#' @param as_df boolean. \code(as_df = TRUE) to return a dataframe. \code(as_df = FALSE) to just print. default \code(as_df = TRUE)
+#' @param as_df boolean. \code{as_df = TRUE} to return a dataframe. \code{as_df = FALSE} to just print. default \code{as_df = TRUE}
 #' @import reticulate
 #' @return Either a DataFrame or printed census variable codes and their description
 #' @export

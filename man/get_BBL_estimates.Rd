@@ -2,13 +2,19 @@
 % Please edit documentation in R/census_estimates.R
 \name{get_BBL_estimates}
 \alias{get_BBL_estimates}
-\title{BBL estimates}
+\title{Get the Building Block Lot (BBL) level estimates for all available census variables}
 \usage{
 get_BBL_estimates()
 }
 \value{
-printing
+DataFrame of BBL level estimates
 }
 \description{
-python
+Get the Building Block Lot (BBL) level estimates for all available census variables
+}
+\examples{
+\dontrun{
+library(councilverse)
+get_BBL_estimates()
+}
 }

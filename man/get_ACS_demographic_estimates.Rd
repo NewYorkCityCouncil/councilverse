@@ -2,7 +2,7 @@
 % Please edit documentation in R/census_estimates.R
 \name{get_ACS_demographic_estimates}
 \alias{get_ACS_demographic_estimates}
-\title{get_demo_estimates}
+\title{Get estimates for census variables for specified geographies}
 \usage{
 get_ACS_demographic_estimates(
   var_code_list,
@@ -11,9 +11,25 @@ get_ACS_demographic_estimates(
   download = FALSE
 )
 }
+\arguments{
+\item{var_code_list}{vector or list. All the variable codes of interest}
+
+\item{geo}{string. Desired geographic boundaries (options: council, policeprct, schooldist, cd, nta, schooldist, borough, nyc)}
+
+\item{polygons}{boolean. \code{polygons = TRUE} to add geometry column. default \code{polygons = FALSE}}
+
+\item{download}{boolean. \code{download = TRUE} to download output df to current working directory as csv. default \code{download = FALSE}}
+}
 \value{
-printing
+DataFrame of requested variables
 }
 \description{
-python
+Get estimates for census variables for specified geographies
+}
+\examples{
+\dontrun{
+library(councilverse)
+get_ACS_demographic_estimates(c("DP02_0078E","DP05_0002PE","DP05_0008PE"),geo = "nta",polygons = TRUE)
+get_ACS_demographic_estimates("DP05_0008PE",geo = "council",download = TRUE)
+}
 }
