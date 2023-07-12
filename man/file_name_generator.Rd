@@ -10,6 +10,7 @@ file_name_generator(
   time_granularity = NULL,
   disaggregation_categories = NULL,
   date_year = NULL,
+  file_extension = NULL,
   ...
 )
 }
@@ -22,9 +23,11 @@ file_name_generator(
 
 \item{disaggregation_categories}{(string). Grouping categorizer; accepts vectors (e.g. 'age','cd',c('age','cd'))}
 
-\item{date_year}{Date or year}
+\item{date_year}{(numeric). Date or year}
 
-\item{...}{Add anything else to the back of the file name}
+\item{file_extension}{(string). File extension (e.g. ".csv")}
+
+\item{...}{Add anything else to the back of the file name before file extension}
 }
 \value{
 A string with the file output name
@@ -41,7 +44,7 @@ A string with the file output name
 \examples{
 \dontrun{
 # All fields used
-file_name_generator(order = "01", description = "acs_poverty", time_granularity = "daily", disaggregation_categories = c("cd", "race"), date_year = 2018, ... = "example")
+file_name_generator(order = "01", description = "acs_poverty", time_granularity = "daily", disaggregation_categories = c("cd", "race"), date_year = 2018, file_extension = ".R",... = "example")
 # Shorter example
 file_name_generator(description = "puma_internet", date_year = 2022)
 }
