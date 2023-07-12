@@ -4,22 +4,22 @@ from copy import deepcopy
 
 # uploading BBL population estimates
 
-population_estimates = pd.read_csv('data/bbl-population-estimates.csv')
+population_estimates = pd.read_csv('inst/extdata/bbl-population-estimates.csv')
 
 # NYC-level numbers for each demographic
 
-nyc_wide_estimates = pd.read_csv('data/nyc-wide_estimates.csv', index_col='NYC')
+nyc_wide_estimates = pd.read_csv('inst/extdata/nyc-wide_estimates.csv', index_col='NYC')
 total_pop_NYC = 8769927 # setting NYC total population (from council_geographies['Total population'].sum())
 nyc_wide_estimates['Total population'] = total_pop_NYC
 
 # uploading data for each geography 
 
-council_geographies = pd.read_csv('data/council-geographies.csv', index_col='council')
-community_geographies = pd.read_csv('data/community-geographies.csv', index_col='cd')
-schooldist_geographies = pd.read_csv('data/schooldist-geographies.csv', index_col='schooldist')
-precinct_geographies = pd.read_csv('data/precinct-geographies.csv', index_col='policeprct')
-neighborhood_geographies = pd.read_csv('data/neighborhood-geographies.csv', index_col='nta')
-borough_geographies = pd.read_csv('data/borough-geographies.csv', index_col='borough')
+council_geographies = pd.read_csv('inst/extdata/council-geographies.csv', index_col='council')
+community_geographies = pd.read_csv('inst/extdata/community-geographies.csv', index_col='cd')
+schooldist_geographies = pd.read_csv('inst/extdata/schooldist-geographies.csv', index_col='schooldist')
+precinct_geographies = pd.read_csv('inst/extdata/precinct-geographies.csv', index_col='policeprct')
+neighborhood_geographies = pd.read_csv('inst/extdata/neighborhood-geographies.csv', index_col='nta')
+borough_geographies = pd.read_csv('inst/extdata/borough-geographies.csv', index_col='borough')
 
 # all available demographic estimates (variable codes are used by get_demo_estimates() to pull estimates from datasets)
 # from https://api.census.gov/data/2021/acs/acs5/profile/variables.html
