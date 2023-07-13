@@ -13,7 +13,7 @@
 
 view_ACS_variables <- function(as_df = TRUE){
   #use_python("/usr/local/bin/python3")
-  source_python('inst/python/retrieve_estimates.py')
+  source_python('python/retrieve_estimates.py')
 
   view_variables(as_df = as_df,demo_dict = py$census_demo_variables)
 }
@@ -40,7 +40,7 @@ view_ACS_variables <- function(as_df = TRUE){
 
 get_ACS_demographic_estimates <- function(var_code_list, geo, polygons = FALSE, download = FALSE){
   #use_python("/usr/local/bin/python3")
-  source_python('inst/python/retrieve_estimates.py')
+  source_python('python/retrieve_estimates.py')
 
   var_code_list <- if(class(var_code_list) != "list") as.list(var_code_list)
 
@@ -62,7 +62,7 @@ get_ACS_demographic_estimates <- function(var_code_list, geo, polygons = FALSE, 
 
 get_BBL_estimates <- function(){
   #use_python("/usr/local/bin/python3")
-  source_python('inst/python/retrieve_estimates.py')
+  source_python('python/retrieve_estimates.py')
 
   get_bbl_estimates()
 }
