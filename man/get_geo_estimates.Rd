@@ -4,13 +4,13 @@
 \alias{get_geo_estimates}
 \title{Function to retrieve acs estimates from csvs at different geographies}
 \usage{
-get_geo_estimates(name = NULL)
+get_geo_estimates(geo = NULL)
 }
 \arguments{
-\item{name}{Name of the csv. If NULL, returns a list of possible geography csvs.}
+\item{geo}{Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs.}
 }
 \value{
-sf for the specified geography, or list of geographies if none is specified
+sf for the specified geography, or message with list of geographies if none is specified
 }
 \description{
 Function to retrieve acs estimates from csvs at different geographies
