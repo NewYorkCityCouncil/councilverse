@@ -21,6 +21,6 @@ get_geo_estimates <- function(geo = NULL) {
     readr::read_csv(fs::path_package("extdata", glue::glue("{geo}-geographies.csv"), package = "councilverse")) %>%
       janitor::clean_names() %>%
       sf::st_as_sf(wkt = "geometry", crs = 4326) %>%
-      st_transform("+proj=longlat +datum=WGS84")
+      sf::st_transform("+proj=longlat +datum=WGS84")
   }
 }
