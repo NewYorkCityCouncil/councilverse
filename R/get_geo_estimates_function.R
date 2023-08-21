@@ -17,7 +17,12 @@ get_geo_estimates <- function(geo = NULL) {
     message("get_geo_estimates() requires a 'geo' parameter.", "\n",
             "Please choose from the following:\n",
             paste0('"',geo_names, '"', collapse = "\n"))
-  } else {
+  } else if (!(geo %in% geo_names)) {
+    message("This geography could not be found", "\n",
+            "Please choose from the following:\n",
+            paste0('"',geo_names, '"', collapse = "\n"))
+  }
+  else {
     readr::read_csv(fs::path_package("extdata", glue::glue("{geo}-geographies.csv"), package = "councilverse")) %>%
       janitor::clean_names() %>%
       sf::st_as_sf(wkt = "geometry", crs = 4326) %>%
