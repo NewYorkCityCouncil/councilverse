@@ -21,3 +21,6 @@ Imports:
     reticulate
 Remotes: 
     newyorkcitycouncil/councildown
+Depends: 
+    R (>= 2.10)
+LazyData: true
