@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_bbl_estimates_function.R
 \name{get_bbl_estimates}
 \alias{get_bbl_estimates}
-\title{Function to retrieve PLUTO bbl popultion estimates}
+\title{Function to retrieve PLUTO bbl population estimates}
 \usage{
 get_bbl_estimates()
 }
@@ -10,5 +10,5 @@ get_bbl_estimates()
 tibble with PLUTO bbl population estimates
 }
 \description{
-Function to retrieve PLUTO bbl popultion estimates
+Function to retrieve PLUTO bbl population estimates
 }
