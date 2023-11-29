@@ -7,7 +7,7 @@
 get_geo_estimates(geo = NULL)
 }
 \arguments{
-\item{geo}{Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs.}
+\item{geo}{Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "community", "council", "neighborhood", "precinct", "schooldist".}
 }
 \value{
 sf for the specified geography, or message with list of geographies if none is specified

@@ -1,7 +1,7 @@
 #' Function to retrieve acs estimates from csvs at different geographies
 #'
 #'
-#' @param geo Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs.
+#' @param geo Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "community", "council", "neighborhood", "precinct", "schooldist".
 #' @import dplyr
 #' @return sf for the specified geography, or message with list of geographies if none is specified
 #' @export

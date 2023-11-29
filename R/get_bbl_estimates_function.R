@@ -1,4 +1,4 @@
-#' Function to retrieve PLUTO bbl popultion estimates
+#' Function to retrieve PLUTO bbl population estimates
 #'
 #' @import dplyr
 #' @return tibble with PLUTO bbl population estimates
