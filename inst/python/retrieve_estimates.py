@@ -1,30 +1,98 @@
 import pandas as pd
 import numpy as np
 from copy import deepcopy 
+from geopandas import GeoDataFrame
+from shapely import wkt
+import os
+
+absolute_path = os.path.dirname(__file__)
+absolute_path = absolute_path[:-4]
+
+bbl_relative_path = 'data/output/bbl-population-estimates_2021.csv'
+bbl_full_path = os.path.join(absolute_path, bbl_relative_path)
+nyc_relative_path = 'data/output/ACS_estimates_2021/nyc-wide_estimates_2021.csv'
+nyc_full_path = os.path.join(absolute_path, nyc_relative_path)
+council_relative_path = 'data/output/ACS_estimates_2021/council-geographies_2021.csv'
+council_full_path = os.path.join(absolute_path, council_relative_path)
+schooldist_relative_path = 'data/output/ACS_estimates_2021/schooldist-geographies_2021.csv'
+schooldist_full_path = os.path.join(absolute_path, schooldist_relative_path)
+community_relative_path = 'data/output/ACS_estimates_2021/community-geographies_2021.csv'
+community_full_path = os.path.join(absolute_path, community_relative_path)
+precinct_relative_path = 'data/output/ACS_estimates_2021/precinct-geographies_2021.csv'
+precinct_full_path = os.path.join(absolute_path, precinct_relative_path)
+neighborhood_relative_path = 'data/output/ACS_estimates_2021/neighborhood-geographies_2021.csv'
+neighborhood_full_path = os.path.join(absolute_path, neighborhood_relative_path)
+borough_relative_path = 'data/output/ACS_estimates_2021/borough-geographies_2021.csv'
+borough_full_path = os.path.join(absolute_path, borough_relative_path)
 
 # uploading BBL population estimates
 
-population_estimates = pd.read_csv('inst/extdata/bbl-population-estimates.csv')
+population_estimates = pd.read_csv(bbl_full_path)
 
 # NYC-level numbers for each demographic
 
-nyc_wide_estimates = pd.read_csv('inst/extdata/nyc-wide_estimates.csv', index_col='NYC')
-total_pop_NYC = 8769927 # setting NYC total population (from council_geographies['Total population'].sum())
-nyc_wide_estimates['Total population'] = total_pop_NYC
+nyc_wide_estimates = pd.read_csv(nyc_full_path)
+# total_pop_NYC = 8769927 # council_geographies['Total population'].sum()
+# total_house_NYC = 3250657 
+# nyc_wide_estimates['Total population'] = total_pop_NYC
 
-# uploading data for each geography 
+# uploading data for each geography type
 
-council_geographies = pd.read_csv('inst/extdata/council-geographies.csv', index_col='council')
-community_geographies = pd.read_csv('inst/extdata/community-geographies.csv', index_col='cd')
-schooldist_geographies = pd.read_csv('inst/extdata/schooldist-geographies.csv', index_col='schooldist')
-precinct_geographies = pd.read_csv('inst/extdata/precinct-geographies.csv', index_col='policeprct')
-neighborhood_geographies = pd.read_csv('inst/extdata/neighborhood-geographies.csv', index_col='nta')
-borough_geographies = pd.read_csv('inst/extdata/borough-geographies.csv', index_col='borough')
+council_geographies = pd.read_csv(council_full_path)
+cd_geographies = pd.read_csv(community_full_path)
+schooldist_geographies = pd.read_csv(schooldist_full_path)
+policeprct_geographies = pd.read_csv(precinct_full_path)
+nta_geographies = pd.read_csv(neighborhood_full_path)
+borough_geographies = pd.read_csv(borough_full_path)
+
+# fixing index/ columns
+
+council_geographies = council_geographies.set_index('council')
+council_geographies = council_geographies.rename(columns={'CounDist':'council'})
+
+cd_geographies = cd_geographies.set_index('cd')
+cd_geographies = cd_geographies.rename(columns={'cd.1':'cd'})
+
+schooldist_geographies = schooldist_geographies.set_index('schooldist')
+schooldist_geographies = schooldist_geographies.rename(columns={'schooldist.1':'schooldist'})
+
+policeprct_geographies = policeprct_geographies.set_index('policeprct')
+policeprct_geographies = policeprct_geographies.rename(columns={'precinct':'policeprct'})
+
+nta_geographies = nta_geographies.set_index('nta')
+nta_geographies = nta_geographies.rename(columns={'nta.1':'nta'})
+
+borough_geographies = borough_geographies.set_index('borough')
+borough_geographies = borough_geographies.rename(columns={'borough.1':'borough'})
+
+# converting to GeoDataFrames so choropleth map will read the geometry columns
+
+council_geographies['geometry'] = council_geographies['geometry'].apply(wkt.loads)
+council_geographies = GeoDataFrame(council_geographies, crs="EPSG:4326", geometry='geometry')
+cd_geographies['geometry'] = cd_geographies['geometry'].apply(wkt.loads)
+cd_geographies = GeoDataFrame(cd_geographies, crs="EPSG:4326", geometry='geometry')
+schooldist_geographies['geometry'] = schooldist_geographies['geometry'].apply(wkt.loads)
+schooldist_geographies = GeoDataFrame(schooldist_geographies, crs="EPSG:4326", geometry='geometry')
+policeprct_geographies['geometry'] = policeprct_geographies['geometry'].apply(wkt.loads)
+policeprct_geographies = GeoDataFrame(policeprct_geographies, crs="EPSG:4326", geometry='geometry')
+nta_geographies['geometry'] = nta_geographies['geometry'].apply(wkt.loads)
+nta_geographies = GeoDataFrame(nta_geographies, crs="EPSG:4326", geometry='geometry')
+borough_geographies['geometry'] = borough_geographies['geometry'].apply(wkt.loads)
+borough_geographies = GeoDataFrame(borough_geographies, crs="EPSG:4326", geometry='geometry')
+
+# all possible demographic dropdown items in Dash App have to be placed in a dictionary
+# will be used to translate dropdown menu choices to codes used in the census api (50 variables at a time is the limit)
+
+# variable names found at https://api.census.gov/data/2021/acs/acs5/profile/variables.html
+
+# first 50 variables
 
 # all available demographic estimates (variable codes are used by get_demo_estimates() to pull estimates from datasets)
 # from https://api.census.gov/data/2021/acs/acs5/profile/variables.html
 
-census_demo_variables = {'DP05_0071PE':'% Hispanic or Latino',
+census_demo_variables = {'DP02_0088E':'Total population',
+                           'DP02_0001E':'Total households',
+                           'DP05_0071PE':'% Hispanic or Latino',
                            'DP05_0076PE':'% Not Hispanic or Latino',
                            'DP05_0039PE':'% American Indian and Alaska Native alone',
                            'DP05_0044PE':'% Asian alone',
@@ -96,75 +164,49 @@ census_demo_variables = {'DP05_0071PE':'% Hispanic or Latino',
 
 ####################################
 
-# outputs a df with estimates, MOEs, and CVs for selected variables 
-
-def get_demo_estimates(var_code_list, geo, polygons = False, download = False, demo_dict = census_demo_variables):
+def get_demo_estimates(var_code_list, geo, polygons = False, download = False, demo_dict = census_demo_variables):#demo_dict_list = census_demo_variables):
     
-# var_code_list: input a list of variable codes  
-# geo: input a string for the desired geographic boundaries (options: council, policeprct, schooldist, cd, nta, schooldist, borough, nyc)
-# polygons: input True to add geometry column
-# download: input True to download output df
-# demo_dict: the dict of available variable codes
-
     if geo not in ['council', 'policeprct', 'schooldist', 'cd', 'nta', 'schooldist', 'borough', 'nyc']: # error if geo not available
         raise ValueError('Estimates for the geography type ' + geo + ' are not available')
     
-    request_df = pd.DataFrame() # empty dataframe
-    
-    # based on input for geo, sets which df the data will be pulled from
-    
-    if geo == 'council':
-        request_df = deepcopy(council_geographies)
-    elif geo == 'policeprct':
-        request_df = deepcopy(precinct_geographies)
-    elif geo == 'schooldist':
-        request_df = deepcopy(schooldist_geographies)
-    elif geo == 'cd':
-        request_df = deepcopy(community_geographies)
-    elif geo == 'nta':
-        request_df = deepcopy(neighborhood_geographies)
-    elif geo == 'schooldist':
-        request_df = deepcopy(schooldist_geographies)
-    elif geo == 'borough':
-        request_df = deepcopy(borough_geographies)
-    elif geo == 'nyc':
-        request_df = deepcopy(nyc_wide_estimates)
+    if geo != 'nyc': request_df = deepcopy(globals()[f'{geo}_geographies'])
+    else: request_df = deepcopy(nyc_wide_estimates)
             
-    col_name_list = [] # list of columns that will be in final version of request_df
-    
-    for var_code in var_code_list: # for each inputted variable code
+    col_name_list = []
         
+    for var_code in var_code_list:
+
         if var_code not in demo_dict.keys(): # error if var_code not available
             raise ValueError('Estimates for the variable code ' + var_code + ' are not available')
-            
-        col_name = demo_dict[var_code] # column name will be the full name of the variable, which is accesed in demo_dict by var_code
-            
-        col_name_list.append(col_name) # add estimate column
-        col_name_list.append(col_name + ' MOE') # add margin of error column
-        col_name_list.append(col_name + ' CV') # add coefficient of variation column
-                
-    col_name_list.append('Total population') # add Total population column
+
+        if var_code in demo_dict.keys():
+
+            col_name = demo_dict[var_code]
+
+            col_name_list.append(col_name)
+
+            if var_code not in ['DP02_0088E', 'DP02_0001E']: # these variables don't have MOE or CV
+                col_name_list.append(col_name + ' MOE')
+                col_name_list.append(col_name[2:] + ' CV')
     
-    if polygons and geo != 'nyc': # adding geometry column for any geography except 'nyc'
+    if polygons and geo != 'nyc':
         
         geometries = request_df['geometry']
         
-        request_df = request_df[col_name_list] # subsetting request_df to columns added to col_name_list
-        request_df['geometry'] = geometries # adding geometries
+        request_df = request_df[col_name_list]
+        request_df['geometry'] = geometries
         
     else:
         
-        request_df = request_df[col_name_list] # subsetting request_df to columns added to col_name_list
+        request_df = request_df[col_name_list]
         
-    if download: # downloading as a csv 
+    if download:
         
         request_df.to_csv('demographic-estimates_by_' + geo + '.csv')
             
     return request_df
 
 ####################################
-
-# outputs a df with population estimates and residential units by BBL, along with various geographies
 
 def get_bbl_estimates(pop_est_df = population_estimates):
     
@@ -174,21 +216,11 @@ def get_bbl_estimates(pop_est_df = population_estimates):
 
 # outputs the available variables and their census api codes
 
-def view_variables(as_df = True, demo_dict = census_demo_variables):
+def view_variables(demo_dict = census_demo_variables):
     
 # demo_dict: the dict of available variable codes
 
-    if as_df: # convert demo_dict to a df
+    variable_df = pd.DataFrame(demo_dict.items(), columns=['var_code', 'var_name']) # df of each code/ variable name pairing  
+    variable_df['var_name'] =  variable_df['var_name'].apply(lambda x: x[2:] if x not in ['Total population', 'Total households'] else x) # removing % from beginning of variable names
         
-        variable_df = pd.DataFrame(demo_dict.items(), columns=['var_code', 'var_name']) # df of each code/ variable name pairing 
-        variable_df['var_name'] =  variable_df['var_name'].apply(lambda x: x[2:]) # removing % from beginning of variable names
-        
-        return variable_df
-    
-    else: # otherwise, just print the pairings out
-        
-        for key in demo_dict.keys(): 
-    
-            print(key, ':', demo_dict[key][2:])
-        
-        return 
+    return variable_df
