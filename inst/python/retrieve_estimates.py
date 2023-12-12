@@ -8,23 +8,23 @@ import os
 absolute_path = os.path.dirname(__file__)
 absolute_path = absolute_path[:-4]
 
-bbl_relative_path = 'data/output/bbl-population-estimates_2021.csv'
+bbl_relative_path = 'inst/extdata/bbl-population-estimates_2021.csv'
 bbl_full_path = os.path.join(absolute_path, bbl_relative_path)
-nyc_relative_path = 'data/output/ACS_estimates_2021/nyc-wide_estimates_2021.csv'
+nyc_relative_path = 'inst/extdata/ACS_estimates_2021/nyc-wide_estimates_2021.csv'
 nyc_full_path = os.path.join(absolute_path, nyc_relative_path)
-council13_relative_path = 'data/output/ACS_estimates_2021/council-geographies_b13_2021.csv'
+council13_relative_path = 'inst/extdata/ACS_estimates_2021/council-geographies_b13_2021.csv'
 council13_full_path = os.path.join(absolute_path, council_relative_path)
-council23_relative_path = 'data/output/ACS_estimates_2021/council-geographies_b23_2021.csv'
+council23_relative_path = 'inst/extdata/ACS_estimates_2021/council-geographies_b23_2021.csv'
 council23_full_path = os.path.join(absolute_path, council_relative_path)
-schooldist_relative_path = 'data/output/ACS_estimates_2021/schooldist-geographies_2021.csv'
+schooldist_relative_path = 'inst/extdata/ACS_estimates_2021/schooldist-geographies_2021.csv'
 schooldist_full_path = os.path.join(absolute_path, schooldist_relative_path)
-community_relative_path = 'data/output/ACS_estimates_2021/community-geographies_2021.csv'
+community_relative_path = 'inst/extdata/ACS_estimates_2021/community-geographies_2021.csv'
 community_full_path = os.path.join(absolute_path, community_relative_path)
-precinct_relative_path = 'data/output/ACS_estimates_2021/precinct-geographies_2021.csv'
+precinct_relative_path = 'inst/extdata/ACS_estimates_2021/precinct-geographies_2021.csv'
 precinct_full_path = os.path.join(absolute_path, precinct_relative_path)
-neighborhood_relative_path = 'data/output/ACS_estimates_2021/neighborhood-geographies_2021.csv'
+neighborhood_relative_path = 'inst/extdata/ACS_estimates_2021/neighborhood-geographies_2021.csv'
 neighborhood_full_path = os.path.join(absolute_path, neighborhood_relative_path)
-borough_relative_path = 'data/output/ACS_estimates_2021/borough-geographies_2021.csv'
+borough_relative_path = 'inst/extdata/ACS_estimates_2021/borough-geographies_2021.csv'
 borough_full_path = os.path.join(absolute_path, borough_relative_path)
 
 # uploading BBL population estimates
