@@ -4,10 +4,12 @@
 \alias{get_geo_estimates}
 \title{Function to retrieve acs estimates from csvs at different geographies}
 \usage{
-get_geo_estimates(geo = NULL)
+get_geo_estimates(geo = NULL, boundary_year = NULL)
 }
 \arguments{
-\item{geo}{Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "community", "council", "neighborhood", "precinct", "schooldist".}
+\item{geo}{(string). Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "community", "council", "neighborhood", "precinct", "schooldist".}
+
+\item{boundary_year}{(string). Year for the geographic boundary (i.e. geo). Currently only relevant for council districts, which have the options "2013" and "2023".}
 }
 \value{
 sf for the specified geography, or message with list of geographies if none is specified
