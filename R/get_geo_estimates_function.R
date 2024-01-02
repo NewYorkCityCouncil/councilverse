@@ -13,7 +13,7 @@ get_geo_estimates <- function(geo = NULL, boundary_year = NULL) {
   # locate available csv files
   csv_names <- dir(system.file("extdata", package = "councilverse"))
   geo_csv_names <- csv_names[grepl("geographies", csv_names)]
-  geo_names <- stringr::str_extract(geo_csv_names, "[^-]+")
+  geo_names <- stringr::str_extract(geo_csv_names, "[^-]+") %>% unique()
 
   # use boundary year information to collect the correct csv later
   boundary_year_num <- stringr::str_sub(boundary_year, -2)
