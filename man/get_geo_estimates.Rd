@@ -7,7 +7,7 @@
 get_geo_estimates(var_codes = NULL, geo = NULL, boundary_year = NULL)
 }
 \arguments{
-\item{var_codes}{(list). List of chosen variable codes, selected from get_census_variables. If wish to select all variable codes, input c("all").}
+\item{var_codes}{(list). List of chosen variable codes, selected from get_census_variables. If wish to select all variable codes, input "all."}
 
 \item{geo}{(string). Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "communitydist", "councildist", "nta", "policeprct", "schooldist".}
 

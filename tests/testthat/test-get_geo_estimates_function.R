@@ -50,6 +50,6 @@ test_that("correct inputs work", {
   # non-council w/ no year
   expect_no_message(get_geo_estimates(c("DP02_0113E","DP02_0115E"), "borough"), message = "`boundary_year` must be '2013' or '2023'", class = "simpleMessage")
   # "all" input for var_codes
-  expect_no_message(get_geo_estimates(c("all"), "borough"), message = "`boundary_year` must be '2013' or '2023'", class = "simpleMessage")
+  expect_no_message(get_geo_estimates("all", "borough"), message = "`boundary_year` must be '2013' or '2023'", class = "simpleMessage")
 
 })

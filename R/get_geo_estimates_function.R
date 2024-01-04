@@ -1,6 +1,6 @@
 #' Function to retrieve acs estimates from csvs at different geographies
 #'
-#' @param var_codes (list). List of chosen variable codes, selected from get_census_variables. If wish to select all variable codes, input c("all").
+#' @param var_codes (list). List of chosen variable codes, selected from get_census_variables. If wish to select all variable codes, input "all."
 #' @param geo (string). Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "communitydist", "councildist", "nta", "policeprct", "schooldist".
 #' @param boundary_year (string). Year for the geographic boundary (i.e. geo). Currently only relevant for council districts, which have the options "2013" and "2023".
 #' @import dplyr
@@ -39,7 +39,7 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
       sf::st_as_sf(wkt = "geometry", crs = 4326) %>%
       sf::st_transform("+proj=longlat +datum=WGS84")
 
-    if (var_codes[1] == "all") { # if all variable codes chosen, output all columns
+    if ("all" %in% var_codes) { # if all variable codes chosen, output all columns
       return(geo_df)
     }
     else { # if list of variable codes requested, subset
@@ -66,7 +66,7 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
   # creating list of variable code typos if any are present
   if (!(is.null(var_codes))) {
     typos <- c() # to add typos in var_codes if they are present
-    if (var_codes[1] != "all") { # if specific variable codes provided, check for typos
+    if (!("all" %in% var_codes)) { # if specific variable codes provided, check for typos
       for(i in var_codes){
         if (!(i %in% demo_variables$var_code)){
           typos <- append(typos, i)
@@ -80,13 +80,13 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
   if (is.null(var_codes) & is.null(geo)) {
     message("This function is missing 2 parameters. get_geo_estimates() requires inputs for 'var_codes' and 'geo'.")
   } else if (is.null(var_codes)){
-    message("get_geo_estimates() requires a 'var_codes' parameter.", "\n", "Please use the get_census_variables() function to view your options, or input c('all') to view all columns.\n")
+    message("get_geo_estimates() requires a 'var_codes' parameter.", "\n", "Please use the get_census_variables() function to view your options, or input 'all' to view all columns.\n")
   } else if (is.null(geo)) {
     message("get_geo_estimates() requires a 'geo' parameter.", "\n",
             "Please choose from the following:\n",
             paste0('"',geo_names, '"', collapse = "\n"))
   } else if (length(typos) > 0){
-    message("The following variable codes could not be found:\n\n", paste0('"',typos, '"', collapse = "\n"), "\n\nPlease use the get_census_variables() function to view your options, or input c('all') to view all columns.")
+    message("The following variable codes could not be found:\n\n", paste0('"',typos, '"', collapse = "\n"), "\n\nPlease use the get_census_variables() function to view your options, or input 'all' to view all columns.")
   } else if (!(geo %in% geo_names)) {
     message("This geography could not be found", "\n",
             "Please choose from the following:\n",
@@ -107,3 +107,4 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
   }
 }
 
+get_geo_estimates("al=l", "borough")
