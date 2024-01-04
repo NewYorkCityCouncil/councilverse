@@ -7,7 +7,7 @@
 get_geo_estimates(geo = NULL, boundary_year = NULL)
 }
 \arguments{
-\item{geo}{(string). Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "community", "council", "neighborhood", "precinct", "schooldist".}
+\item{geo}{(string). Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "communitydist", "councildist", "nta", "policeprct", "schooldist".}
 
 \item{boundary_year}{(string). Year for the geographic boundary (i.e. geo). Currently only relevant for council districts, which have the options "2013" and "2023".}
 }
