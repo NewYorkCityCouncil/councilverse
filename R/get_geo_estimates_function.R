@@ -1,7 +1,7 @@
 #' Function to retrieve acs estimates from csvs at different geographies
 #'
-#'
-#' @param geo (string). Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "community", "council", "neighborhood", "precinct", "schooldist".
+#' @param var_codes (list). List of chosen variable codes, selected from get_census_variables. If wish to select all variable codes, input c("all").
+#' @param geo (string). Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "communitydist", "councildist", "nta", "policeprct", "schooldist".
 #' @param boundary_year (string). Year for the geographic boundary (i.e. geo). Currently only relevant for council districts, which have the options "2013" and "2023".
 #' @import dplyr
 #' @return sf for the specified geography, or message with list of geographies if none is specified
@@ -101,3 +101,5 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
     message("The following variable codes could not be found:\n\n", paste0('"',typos, '"', collapse = "\n"), "\n\nPlease use the get_census_variables() function to view your options, or input c('all') to view all columns.")
   }
 }
+
+get_geo_estimates(c("all"), "councildist", "2013")
