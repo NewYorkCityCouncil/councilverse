@@ -27,7 +27,7 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
   read_geos <- function(geo = NULL, boundary_year_ext = NULL) {
 
     if (!(is.null(boundary_year_ext))) { # if boundary_year not null (i.e. council is chosen), adding boundary year to geo name
-      add_year <- str_sub(boundary_year_ext, 3)
+      add_year <- stringr::str_sub(boundary_year_ext, 3)
     }
     else { # otherwise, leave as null (no boundary year added)
       add_year <- boundary_year_ext
@@ -63,10 +63,10 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
       for(i in 1:nrow(demo_variables)) {
         row <- demo_variables[i,]
         col_names <- append(col_names, row$cleaned_name) # adding percent version
-        col_names <- append(col_names, str_sub(row$cleaned_name, 9)) # adding number   version
+        col_names <- append(col_names, stringr::str_sub(row$cleaned_name, 9)) # adding number   version
         col_names <- append(col_names, paste(row$cleaned_name, 'moe', sep = '_')) # adding % MOE
-        col_names <- append(col_names, paste(str_sub(row$cleaned_name, 9), 'moe', sep = '_')) # adding number MOE
-        col_names <- append(col_names, paste(str_sub(row$cleaned_name, 9), 'cv', sep = '_')) # adding CV
+        col_names <- append(col_names, paste(stringr::str_sub(row$cleaned_name, 9), 'moe', sep = '_')) # adding number MOE
+        col_names <- append(col_names, paste(stringr::str_sub(row$cleaned_name, 9), 'cv', sep = '_')) # adding CV
       }
       return(geo_df[,col_names])
     }
