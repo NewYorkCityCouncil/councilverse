@@ -1,14 +1,14 @@
 #' Function to retrieve acs estimates from csvs at different geographies
 #'
-#' @param var_codes (list). List of chosen variable codes, selected from get_census_variables. If wish to select all variable codes, input "all."
 #' @param geo (string). Name of the geography with associated csv in "extdata". If NULL, returns a list of possible geography csvs. Options: "borough", "communitydist", "councildist", "nta", "policeprct", "schooldist".
+#' @param var_codes (list). List of chosen variable codes, selected from get_census_variables. If wish to select all variable codes, input "all" (this is also the default value).
 #' @param boundary_year (string). Year for the geographic boundary (i.e. geo). Currently only relevant for council districts, which have the options "2013" and "2023".
 #' @import dplyr
 #' @return sf for the specified geography, or message with list of geographies if none is specified
 #' @export
 #'
 
-get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL) {
+get_geo_estimates <- function(geo = NULL, var_codes = "all", boundary_year = NULL) {
 
   # locate available csv files
   csv_names <- dir(system.file("extdata", package = "councilverse"))
@@ -28,8 +28,7 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
 
     if (!(is.null(boundary_year_ext))) { # if boundary_year not null (i.e. council is chosen), adding boundary year to geo name
       add_year <- stringr::str_sub(boundary_year_ext, 3)
-    }
-    else { # otherwise, leave as null (no boundary year added)
+    } else { # otherwise, leave as null (no boundary year added)
       add_year <- boundary_year_ext
     }
 
@@ -41,8 +40,7 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
 
     if ("all" %in% var_codes) { # if all variable codes chosen, output all columns
       return(geo_df)
-    }
-    else { # if list of variable codes requested, subset
+    } else { # if list of variable codes requested, subset
 
       # using var_codes list to access desired variable names
       demo_variables <- demo_variables %>%
@@ -64,27 +62,23 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
   }
 
   # creating list of variable code typos if any are present
+  typos <- c()
   if (!(is.null(var_codes))) {
-    typos <- c() # to add typos in var_codes if they are present
     if (!("all" %in% var_codes)) { # if specific variable codes provided, check for typos
-      for(i in var_codes){
-        if (!(i %in% demo_variables$var_code)){
-          typos <- append(typos, i)
-          }
-        }
-      }
+      typos <- var_codes[!(var_codes %in% demo_variables$var_code)]
     }
+  }
 
   # different input cases. can check in tests/testthat/test-get_geo_estimates_function.R
 
-  if (is.null(var_codes) & is.null(geo)) {
-    message("This function is missing 2 parameters. get_geo_estimates() requires inputs for 'var_codes' and 'geo'.")
-  } else if (is.null(var_codes)){
+  if (is.null(var_codes)) {
     message("get_geo_estimates() requires a 'var_codes' parameter.", "\n", "Please use the get_census_variables() function to view your options, or input 'all' to view all columns.\n")
   } else if (is.null(geo)) {
     message("get_geo_estimates() requires a 'geo' parameter.", "\n",
             "Please choose from the following:\n",
             paste0('"',geo_names, '"', collapse = "\n"))
+  } else if ("2013" %in% var_codes | "2023" %in% var_codes){
+    message("boundary_year input used for var_codes parameter. Please provide parameter names to avoid this issue.")
   } else if (length(typos) > 0){
     message("The following variable codes could not be found:\n\n", paste0('"',typos, '"', collapse = "\n"), "\n\nPlease use the get_census_variables() function to view your options, or input 'all' to view all columns.")
   } else if (!(geo %in% geo_names)) {
@@ -107,4 +101,4 @@ get_geo_estimates <- function(var_codes = NULL, geo = NULL, boundary_year = NULL
   }
 }
 
-get_geo_estimates("al=l", "borough")
+
