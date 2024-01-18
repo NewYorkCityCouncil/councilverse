@@ -6,7 +6,6 @@
 #' @import dplyr
 #' @return sf for the specified geography, or message with list of geographies if none is specified
 #' @export
-#'
 
 get_geo_estimates <- function(geo = NULL, var_codes = "all", boundary_year = NULL) {
 
@@ -51,11 +50,20 @@ get_geo_estimates <- function(geo = NULL, var_codes = "all", boundary_year = NUL
       col_names <- c(paste(geo, add_year, sep=''), 'geometry')
       for(i in 1:nrow(demo_variables)) {
         row <- demo_variables[i,]
-        col_names <- append(col_names, row$cleaned_name) # adding percent version
-        col_names <- append(col_names, stringr::str_sub(row$cleaned_name, 9)) # adding number   version
-        col_names <- append(col_names, paste(row$cleaned_name, 'moe', sep = '_')) # adding % MOE
-        col_names <- append(col_names, paste(stringr::str_sub(row$cleaned_name, 9), 'moe', sep = '_')) # adding number MOE
-        col_names <- append(col_names, paste(stringr::str_sub(row$cleaned_name, 9), 'cv', sep = '_')) # adding CV
+
+        # if Total population/ households selected, only include estimate (doesn't have MOE/ CV)
+        if (row$var_code %in% c('DP02_0088E','DP02_0001E')) {
+
+          col_names <- append(col_names, row$cleaned_name)
+
+        } else { # otherwise include estimates and MOE/ CV
+
+          col_names <- append(col_names, row$cleaned_name) # adding percent version
+          col_names <- append(col_names, stringr::str_sub(row$cleaned_name, 9)) # adding number   version
+          col_names <- append(col_names, paste(row$cleaned_name, 'moe', sep = '_')) # adding % MOE
+          col_names <- append(col_names, paste(stringr::str_sub(row$cleaned_name, 9), 'moe', sep = '_')) # adding number MOE
+          col_names <- append(col_names, paste(stringr::str_sub(row$cleaned_name, 9), 'cv', sep = '_')) # adding CV
+        }
       }
       return(geo_df[,col_names])
     }
@@ -100,5 +108,3 @@ get_geo_estimates <- function(geo = NULL, var_codes = "all", boundary_year = NUL
     read_geos(geo, glue::glue("_b{boundary_year_num}"))
   }
 }
-
-
