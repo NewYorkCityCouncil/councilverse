@@ -4,6 +4,8 @@ library(dplyr)
 
 census_demo_variables <- data.frame(
   var_code = c(
+    'DP02_0088E',
+    'DP02_0001E',
     'DP05_0071PE',
     'DP05_0076PE',
     'DP05_0039PE',
@@ -74,6 +76,8 @@ census_demo_variables <- data.frame(
     'DP05_0017PE'
   ),
   var_name = c(
+    'Total population',
+    'Total households',
     '% Hispanic or Latino',
     '% Not Hispanic or Latino',
     '% American Indian and Alaska Native alone',
