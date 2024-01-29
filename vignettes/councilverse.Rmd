@@ -161,13 +161,13 @@ htmlwidgets::saveWidget(map, file=glue::glue("visuals/{map_html}"), selfcontaine
 
 `addCouncilStyle()` -- Adds Council styles including tiles, council district outlines, and fonts to a `leaflet` map
 
-`addSourceText()` -- Adds Council source note in the bottom right of `leaflet` map
+`addSourceText()` -- Adds Council "Source" note in the bottom right of `leaflet` map
 
 `addPolygons()` -- The `leaflet` function `addPolygons` with default `smoothFactor` and `weight`
 
 `colorBin()` -- The `leaflet` function `colorBin` with default `palette`, `bins`, `na.color`
 
-`councilPopup()` -- Wraps input in a `<div>` and sets Council fonts for body and headers
+`councilPopup()` -- Basic styling for `leaflet` popups 
 
 `mapshot()` -- Saves `leaflet` maps as a static png image and defaults map saves with standardized `width`, `height`, and `zoom`
 
@@ -178,3 +178,12 @@ htmlwidgets::saveWidget(map, file=glue::glue("visuals/{map_html}"), selfcontaine
 `nycc_cd_13` -- 2013-2023 NYC Council District sf collection
 
 `nycc_cd_23` -- 2023-2033 NYC Council District sf collection
+
+#### Templates
+
+`council_html()` -- Render a Council HTML report
+`council_pdf()` -- Render a Council PDF report
+
+#### Misc
+
+`pretty_date` -- Make a pretty date
