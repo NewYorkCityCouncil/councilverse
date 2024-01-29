@@ -141,6 +141,40 @@ htmlwidgets::saveWidget(map, file=glue::glue("visuals/{map_html}"), selfcontaine
 
 ### CouncilVerse
 
+
+
 ### CouncilDown
 
-`addCouncilStyle()` -- Add styling to leaflet maps
+#### Plots
+
+`theme_nycc()` -- A `ggplot2` theme that uses Council fonts and style guidelines to produce plots
+
+`scale_fill_nycc()`, `scale_color_nycc()` -- Color and fill scales for `ggplot2` plots. Used to replace `scale_color_discrete()`, `scale_color_continuous()`, `scale_fill_discrete()`, and `scale_fill_continuous()`
+
+#### Colors
+
+`pal_nycc()` -- Makes a color palette using Council colors
+
+`nycc_pal()` DEPRECATED. Use `pal_nycc` instead
+
+#### Maps
+
+`addCouncilStyle()` -- Adds Council styles including tiles, council district outlines, and fonts to a `leaflet` map
+
+`addSourceText()` -- Adds Council source note in the bottom right of `leaflet` map
+
+`addPolygons()` -- The `leaflet` function `addPolygons` with default `smoothFactor` and `weight`
+
+`colorBin()` -- The `leaflet` function `colorBin` with default `palette`, `bins`, `na.color`
+
+`councilPopup()` -- Wraps input in a `<div>` and sets Council fonts for body and headers
+
+`mapshot()` -- Saves `leaflet` maps as a static png image and defaults map saves with standardized `width`, `height`, and `zoom`
+
+`addLegend_decreasing()` -- The `leaflet` function `addLegend` but with the option for the highest number to be at the top of the legend
+
+#### Data
+
+`nycc_cd_13` -- 2013-2023 NYC Council District sf collection
+
+`nycc_cd_23` -- 2023-2033 NYC Council District sf collection
