@@ -5,26 +5,28 @@ from geopandas import GeoDataFrame
 from shapely import wkt
 import os
 
-absolute_path = os.path.dirname(__file__)
-absolute_path = absolute_path[:-4]
+path_str = os.path.dirname(__file__)
+sub_str = "councilverse/" # initializing sub string
+absolute_path = path_str[:path_str.index(sub_str) + len(sub_str)] # slicing off after length computation
 
 bbl_relative_path = 'inst/extdata/bbl-population-estimates_2021.csv'
 bbl_full_path = os.path.join(absolute_path, bbl_relative_path)
-nyc_relative_path = 'inst/extdata/ACS_estimates_2021/nyc-wide_estimates_2021.csv'
+
+nyc_relative_path = 'inst/extdata/nyc-wide_estimates_2021.csv'
 nyc_full_path = os.path.join(absolute_path, nyc_relative_path)
-council13_relative_path = 'inst/extdata/ACS_estimates_2021/council-geographies_b13_2021.csv'
-council13_full_path = os.path.join(absolute_path, council_relative_path)
-council23_relative_path = 'inst/extdata/ACS_estimates_2021/council-geographies_b23_2021.csv'
-council23_full_path = os.path.join(absolute_path, council_relative_path)
-schooldist_relative_path = 'inst/extdata/ACS_estimates_2021/schooldist-geographies_2021.csv'
+councildist13_relative_path = 'inst/extdata/councildist-geographies_b13_2021.csv'
+councildist13_full_path = os.path.join(absolute_path, councildist13_relative_path)
+councildist23_relative_path = 'inst/extdata/councildist-geographies_b23_2021.csv'
+councildist23_full_path = os.path.join(absolute_path, councildist23_relative_path)
+schooldist_relative_path = 'inst/extdata/schooldist-geographies_2021.csv'
 schooldist_full_path = os.path.join(absolute_path, schooldist_relative_path)
-community_relative_path = 'inst/extdata/ACS_estimates_2021/community-geographies_2021.csv'
-community_full_path = os.path.join(absolute_path, community_relative_path)
-precinct_relative_path = 'inst/extdata/ACS_estimates_2021/precinct-geographies_2021.csv'
-precinct_full_path = os.path.join(absolute_path, precinct_relative_path)
-neighborhood_relative_path = 'inst/extdata/ACS_estimates_2021/neighborhood-geographies_2021.csv'
-neighborhood_full_path = os.path.join(absolute_path, neighborhood_relative_path)
-borough_relative_path = 'inst/extdata/ACS_estimates_2021/borough-geographies_2021.csv'
+communitydist_relative_path = 'inst/extdata/communitydist-geographies_2021.csv'
+communitydist_full_path = os.path.join(absolute_path, communitydist_relative_path)
+policeprct_relative_path = 'inst/extdata/policeprct-geographies_2021.csv'
+policeprct_full_path = os.path.join(absolute_path, policeprct_relative_path)
+nta_relative_path = 'inst/extdata/nta-geographies_2021.csv'
+nta_full_path = os.path.join(absolute_path, nta_relative_path)
+borough_relative_path = 'inst/extdata/borough-geographies_2021.csv'
 borough_full_path = os.path.join(absolute_path, borough_relative_path)
 
 # uploading BBL population estimates
@@ -40,45 +42,32 @@ nyc_wide_estimates = pd.read_csv(nyc_full_path)
 
 # uploading data for each geography type
 
-council13_geographies = pd.read_csv(council13_full_path)
-council23_geographies = pd.read_csv(council23_full_path)
-cd_geographies = pd.read_csv(community_full_path)
+councildist13_geographies = pd.read_csv(councildist13_full_path)
+councildist23_geographies = pd.read_csv(councildist23_full_path)
+communitydist_geographies = pd.read_csv(communitydist_full_path)
 schooldist_geographies = pd.read_csv(schooldist_full_path)
-policeprct_geographies = pd.read_csv(precinct_full_path)
-nta_geographies = pd.read_csv(neighborhood_full_path)
+policeprct_geographies = pd.read_csv(policeprct_full_path)
+nta_geographies = pd.read_csv(nta_full_path)
 borough_geographies = pd.read_csv(borough_full_path)
 
 # fixing index/ columns
 
-council13_geographies = council13_geographies.set_index('council13')
-council13_geographies = council13_geographies.rename(columns={'CounDist':'council13'})
-
-council23_geographies = council23_geographies.set_index('council23')
-council23_geographies = council23_geographies.rename(columns={'coun_dist':'council23'})
-
-cd_geographies = cd_geographies.set_index('cd')
-cd_geographies = cd_geographies.rename(columns={'cd.1':'cd'})
-
+councildist13_geographies = councildist13_geographies.set_index('councildist13')
+councildist23_geographies = councildist23_geographies.set_index('councildist23')
+communitydist_geographies = communitydist_geographies.set_index('communitydist')
 schooldist_geographies = schooldist_geographies.set_index('schooldist')
-schooldist_geographies = schooldist_geographies.rename(columns={'schooldist.1':'schooldist'})
-
 policeprct_geographies = policeprct_geographies.set_index('policeprct')
-policeprct_geographies = policeprct_geographies.rename(columns={'precinct':'policeprct'})
-
 nta_geographies = nta_geographies.set_index('nta')
-nta_geographies = nta_geographies.rename(columns={'nta.1':'nta'})
-
 borough_geographies = borough_geographies.set_index('borough')
-borough_geographies = borough_geographies.rename(columns={'borough.1':'borough'})
 
 # converting to GeoDataFrames so choropleth map will read the geometry columns
 
-council13_geographies['geometry'] = council13_geographies['geometry'].apply(wkt.loads)
-council13_geographies = GeoDataFrame(council13_geographies, crs="EPSG:4326", geometry='geometry')
-council23_geographies['geometry'] = council23_geographies['geometry'].apply(wkt.loads)
-council23_geographies = GeoDataFrame(council23_geographies, crs="EPSG:4326", geometry='geometry')
-cd_geographies['geometry'] = cd_geographies['geometry'].apply(wkt.loads)
-cd_geographies = GeoDataFrame(cd_geographies, crs="EPSG:4326", geometry='geometry')
+councildist13_geographies['geometry'] = councildist13_geographies['geometry'].apply(wkt.loads)
+council13_geographies = GeoDataFrame(councildist13_geographies, crs="EPSG:4326", geometry='geometry')
+councildist23_geographies['geometry'] = councildist23_geographies['geometry'].apply(wkt.loads)
+council23_geographies = GeoDataFrame(councildist23_geographies, crs="EPSG:4326", geometry='geometry')
+communitydist_geographies['geometry'] = communitydist_geographies['geometry'].apply(wkt.loads)
+communitydist_geographies = GeoDataFrame(communitydist_geographies, crs="EPSG:4326", geometry='geometry')
 schooldist_geographies['geometry'] = schooldist_geographies['geometry'].apply(wkt.loads)
 schooldist_geographies = GeoDataFrame(schooldist_geographies, crs="EPSG:4326", geometry='geometry')
 policeprct_geographies['geometry'] = policeprct_geographies['geometry'].apply(wkt.loads)
@@ -174,7 +163,7 @@ census_demo_variables = {'DP02_0088E':'Total population',
 
 def get_demo_estimates(var_code_list, geo, polygons = False, download = False, demo_dict = census_demo_variables):#demo_dict_list = census_demo_variables):
     
-    if geo not in ['council13', 'council23', 'policeprct', 'schooldist', 'cd', 'nta', 'schooldist', 'borough', 'nyc']: # error if geo not available
+    if geo not in ['councildist13', 'councildist23', 'policeprct', 'schooldist', 'communitydist', 'nta', 'schooldist', 'borough', 'nyc']: # error if geo not available
         raise ValueError('Estimates for the geography type ' + geo + ' are not available')
     
     if geo != 'nyc': request_df = deepcopy(globals()[f'{geo}_geographies'])
