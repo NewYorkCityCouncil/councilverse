@@ -41,12 +41,27 @@ library(councilverse)
 
 ## Vignette
 
-For a demo of the functions available, see `vignettes/councilverse.Rmd`
+For a demo of the 2 largest packages (`councildown` and `councilcount`)
+available in `councilverse`, see `vignettes/councilverse.Rmd`
 
 ## Quick Start
 
 First load the `councilverse` package as above.
 
+### Councildown
+
+The `councildown` package implements style guide compliant defaults for
+R Markdown documents, `ggplot2` plots, and `leaflet` maps. For more
+information, please visit the package directly:
+<https://github.com/NewYorkCityCouncil/councildown/> . The
+`councilverse` vignette goes through an example using most of
+`councildown`’s available functions.
+
 ### Councilcount
 
-\[INSERT DEMO HERE\]
+The `councilcount` package allows easy access to the ACS variables for
+various boundary levels. For the boundaries that are not native to the
+ACS, such as council districts, an estimate is created. For more
+information, please visit the package directly:
+
+\[Insert What-Would-Be-Councilcount-ReadMe Here\]
