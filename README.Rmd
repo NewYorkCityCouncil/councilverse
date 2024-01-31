@@ -1,0 +1,61 @@
+---
+output: github_document
+always_allow_html: yes
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+library(councilverse)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Overview
+
+The `councilverse` is a set of packages that work in tandem to assist the NYCC's data team in doing their work. This package is designed to make it easy to install and load multiple 'councilverse' packages in a single step.
+
+## Installation
+
+You can install the released version of `councilverse` from GitHub
+
+``` r
+remotes::install_github("newyorkcitycouncil/councilverse")
+```
+
+## Load Package
+
+Note that the order of loading the libraries is important. Make sure to load `councilverse` last.
+
+```{r dpi=300}
+library(tidyverse)
+# load last
+library(councilverse)
+```
+
+## Vignette
+
+For a demo of the 2 largest packages (`councildown` and `councilcount`) available in `councilverse`, see `vignettes/councilverse.Rmd`
+
+## Quick Start
+
+First load the `councilverse` package as above.
+
+### Councildown
+The `councildown` package implements style guide compliant defaults for R Markdown documents, `ggplot2` plots, and `leaflet` maps. For more information, please visit the package directly: https://github.com/NewYorkCityCouncil/councildown/ . The `councilverse` vignette goes through an example using most of `councildown`'s available functions.
+
+### Councilcount
+The `councilcount` package allows easy access to the ACS variables for various boundary levels. For the boundaries that are not native to the ACS, such as council districts, an estimate is created. For more information, please visit the package directly:
+
+[Insert What-Would-Be-Councilcount-ReadMe Here]
+ 
+ 
+
+
+
+
+
