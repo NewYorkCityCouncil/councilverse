@@ -42,7 +42,7 @@ CouncilCount data is a part of the CouncilVerse package. We will use this data a
 # councilverse::get_census_variables to check available variables
 census_vars <- get_census_variables()
 # councilverse::get_geo_estimates to read in council district data for % work from home using 2013 council boundaries
-# borough, community, councildist, neighborhood, precinct, schooldist geographies are available
+# borough, communitydist, councildist, nta, policeprct, schooldist geographies are available
 council_geo <- get_geo_estimates("councildist", var_codes = "DP03_0024E", boundary_year = "2013") 
 ```
 
@@ -141,7 +141,25 @@ htmlwidgets::saveWidget(map, file=glue::glue("visuals/{map_html}"), selfcontaine
 
 ### CouncilVerse
 
+#### Graphs and Tables
 
+`encodeGraphic()` -- Graphics to raw HTML
+`gt_table()` -- gt table to raw HTML helper function
+
+#### Misc
+
+`file_name_generator()` -- Helper function for creating file names using accepted guidelines
+`unzip_sf()` -- Helper function for loading in shapefiles that come zipped
+
+### CouncilCount
+
+#### Population Estimates
+
+`get_bbl_estimates()` -- Generates a dataframe that provides population estimates at the point level. It also has columns for various other geographies, like council district
+
+`get_census_variables()` -- Provides information on all of the ACS demographic variables that can be accessed using `get_geo_estimates()`
+
+`get_geo_estimates()` -- Creates a dataframe that provides population estimates for selected demographic variables along chosen geographic boundaries (e.g. council district, borough, etc.)
 
 ### CouncilDown
 
