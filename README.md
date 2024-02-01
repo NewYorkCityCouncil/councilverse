@@ -142,7 +142,8 @@ be specified as 2013 or 2023. The default is 2013.
 
 Here is an example, in which codes for “Female” and “Adults with
 Bachelor’s degree or higher” are used. The data is requested along 2023
-Council District boundaries.
+Council District boundaries. The estimates, along with margins of error 
+and coefficients of variation, will be provided.
 
 ``` r
 vars <- c('DP05_0003PE', 'DP02_0068E')
