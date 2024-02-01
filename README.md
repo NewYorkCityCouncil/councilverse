@@ -23,22 +23,6 @@ load `councilverse` last.
 
 ``` r
 library(tidyverse)
-#> Warning: package 'dplyr' was built under R version 4.2.3
-#> Warning: package 'stringr' was built under R version 4.2.3
-#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.1
-#> ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-#> ✔ purrr     1.0.1     
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter()                   masks stats::filter()
-#> ✖ dplyr::lag()                      masks stats::lag()
-#> ✖ ggplot2::scale_color_continuous() masks councildown::scale_color_continuous()
-#> ✖ ggplot2::scale_color_discrete()   masks councildown::scale_color_discrete()
-#> ✖ ggplot2::scale_fill_continuous()  masks councildown::scale_fill_continuous()
-#> ✖ ggplot2::scale_fill_discrete()    masks councildown::scale_fill_discrete()
-#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 # load last
 library(councilverse)
 ```
@@ -110,12 +94,12 @@ First load the `councilcount` package as above.
 
 `councilcount` includes 3 functions:
 
-* `get_bbl_estimates()` – Generates a dataframe that provides population
+`get_bbl_estimates()` – Generates a dataframe that provides population
 estimates at the point level (there are also columns for various other
-geographies, like council district) 
-* `get_census_variables()` – Provides information on all of the ACS demographic variables that can be accessed
-using `get_geo_estimates()` via variable codes
-* `get_geo_estimates()` – Creates a dataframe that provides population estimates for selected
+geographies, like council district) `get_census_variables()` – Provides
+information on all of the ACS demographic variables that can be accessed
+using `get_geo_estimates()` via variable codes `get_geo_estimates()` –
+Creates a dataframe that provides population estimates for selected
 demographic variables along chosen geographic boundaries (e.g. council
 district, borough, etc.)
 
@@ -125,25 +109,18 @@ the desired dataframes. They do not require any inputs.
 `get_geo_estimates()` has 3 parameters:
 
 `geo` – The desired geographic region. Please select from the following
-list: 
-* Council Distrist: “councildist”
-* Community Distrist: “communitydist”
-* School District: “schooldist”
-* Police Precinct: “policeprct”
-* Neighborhood Tabulation Area: “nta”
-* Borough: “borough”
-
-`var_codes` – The desired demographic group(s), as represented
+list: \*\* Council Distrist: “councildist” \*\* Community Distrist:
+“communitydist” \*\* School District: “schooldist” \*\* Police Precinct:
+“policeprct” \*\* Neighborhood Tabulation Area: “nta” \*\* Borough:
+“borough” `var_codes` – The desired demographic group(s), as represented
 by the ACS variable code. To access the list of available demographic
 variables and their codes, please run `get_census_variables()`
-
 `boundary_year` – If “councildist” is selected, the boundary year must
 be specified as 2013 or 2023. The default is 2013.
 
 Here is an example, in which codes for “Female” and “Adults with
 Bachelor’s degree or higher” are used. The data is requested along 2023
-Council District boundaries. The estimates, along with margins of error 
-and coefficients of variation, will be provided.
+Council District boundaries.
 
 ``` r
 vars <- c('DP05_0003PE', 'DP02_0068E')
@@ -164,11 +141,11 @@ from retrieve_estimates import get_bbl_estimates, get_census_variables, get_geo_
 
 `get_bbl_estimates()` and `get_census_variables()` function the same in
 both R and Python. However, `get_geo_estimates()` has some differences
-in Python. Instead of having separate parameters for `geo` and `boundary_year`, 
-there is only `geo`. To differentiate between 2013 and 2023 boundaries for Council Districts,
-there are two input options “councildist13” and “councildist23.” Data for 
-New York City as a whole is also available using “nyc” for `geo`. Otherwise,
-the `geo` input options are the same. There are also two additional parameters, `polygons` and `download`,
+in Python. Instead of having separate parameters for geo and boundary
+year, there are two input options for Council Districts, “councildist13”
+and “councildist23.” Data for New York City as a whole is also available
+using “nyc” for geo. Otherwise, the geo input options are the same.
+There are also two additional parameters, `polygons` and `download`,
 with the defaults set at False. If `polygons` is set to True, the
 dataframe will include a column with the geometries associated with each
 geographic region. If `download` is set to True, the dataframe will

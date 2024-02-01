@@ -31,7 +31,7 @@ remotes::install_github("newyorkcitycouncil/councilverse")
 
 Note that the order of loading the libraries is important. Make sure to load `councilverse` last.
 
-```{r dpi=300}
+```{r eval=FALSE}
 library(tidyverse)
 # load last
 library(councilverse)
@@ -68,7 +68,7 @@ remotes::install_github("newyorkcitycouncil/councilcount")
 Note that the order of loading the libraries is important. Make sure to
 load `councilcount` last.
 
-``` r
+```{r eval=FALSE}
 library(tidyverse)
 # load last
 library(councilcount)
