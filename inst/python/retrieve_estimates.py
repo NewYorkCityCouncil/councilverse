@@ -161,7 +161,7 @@ census_demo_variables = {'DP02_0088E':'Total population',
 
 ####################################
 
-def get_demo_estimates(var_code_list, geo, polygons = False, download = False, demo_dict = census_demo_variables):#demo_dict_list = census_demo_variables):
+def get_geo_estimates(geo, var_codes, polygons = False, download = False, demo_dict = census_demo_variables):
     
     if geo not in ['councildist13', 'councildist23', 'policeprct', 'schooldist', 'communitydist', 'nta', 'schooldist', 'borough', 'nyc']: # error if geo not available
         raise ValueError('Estimates for the geography type ' + geo + ' are not available')
@@ -171,7 +171,7 @@ def get_demo_estimates(var_code_list, geo, polygons = False, download = False, d
             
     col_name_list = []
         
-    for var_code in var_code_list:
+    for var_code in var_codes:
 
         if var_code not in demo_dict.keys(): # error if var_code not available
             raise ValueError('Estimates for the variable code ' + var_code + ' are not available')
@@ -213,7 +213,7 @@ def get_bbl_estimates(pop_est_df = population_estimates):
 
 # outputs the available variables and their census api codes
 
-def view_variables(demo_dict = census_demo_variables):
+def get_census_variables(demo_dict = census_demo_variables):
     
 # demo_dict: the dict of available variable codes
 
