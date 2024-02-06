@@ -111,13 +111,7 @@ the desired dataframes. They do not require any inputs.
 `get_geo_estimates()` has 3 parameters:
 
 * `geo` – The desired geographic region. Please select from the following
-list:
-** Council Distrist: “councildist” \*\* Community Distrist:
-“communitydist”
-** School District: “schooldist” \*\* Police Precinct:
-“policeprct”
-** Neighborhood Tabulation Area: “nta” \*\* Borough:
-“borough”
+list: “councildist”, “communitydist”, “schooldist”, “policeprct”, “nta”, “borough”
 * `var_codes` – The desired demographic group(s), as represented
 by the ACS variable code. To access the list of available demographic
 variables and their codes, please run `get_census_variables()`
