@@ -110,14 +110,18 @@ the desired dataframes. They do not require any inputs.
 
 `get_geo_estimates()` has 3 parameters:
 
-`geo` – The desired geographic region. Please select from the following
-list: \*\* Council Distrist: “councildist” \*\* Community Distrist:
-“communitydist” \*\* School District: “schooldist” \*\* Police Precinct:
-“policeprct” \*\* Neighborhood Tabulation Area: “nta” \*\* Borough:
-“borough” `var_codes` – The desired demographic group(s), as represented
+* `geo` – The desired geographic region. Please select from the following
+list:
+** Council Distrist: “councildist” \*\* Community Distrist:
+“communitydist”
+** School District: “schooldist” \*\* Police Precinct:
+“policeprct”
+** Neighborhood Tabulation Area: “nta” \*\* Borough:
+“borough”
+* `var_codes` – The desired demographic group(s), as represented
 by the ACS variable code. To access the list of available demographic
 variables and their codes, please run `get_census_variables()`
-`boundary_year` – If “councildist” is selected, the boundary year must
+* `boundary_year` – If “councildist” is selected, the boundary year must
 be specified as 2013 or 2023. The default is 2013.
 
 Here is an example, in which codes for “Female” and “Adults with
