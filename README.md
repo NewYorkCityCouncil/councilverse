@@ -94,11 +94,13 @@ First load the `councilcount` package as above.
 
 `councilcount` includes 3 functions:
 
-`get_bbl_estimates()` – Generates a dataframe that provides population
+* `get_bbl_estimates()` – Generates a dataframe that provides population
 estimates at the point level (there are also columns for various other
-geographies, like council district) `get_census_variables()` – Provides
+geographies, like council district) 
+* `get_census_variables()` – Provides
 information on all of the ACS demographic variables that can be accessed
-using `get_geo_estimates()` via variable codes `get_geo_estimates()` –
+using `get_geo_estimates()` via variable codes 
+* `get_geo_estimates()` –
 Creates a dataframe that provides population estimates for selected
 demographic variables along chosen geographic boundaries (e.g. council
 district, borough, etc.)
