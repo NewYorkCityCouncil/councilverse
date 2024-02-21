@@ -1,5 +1,5 @@
 
-pkgs <- c("councildown")
+pkgs <- c("councildown","councilcount")
 
 councilverse_attach <- function() {
   # Create `to_load` which is a character vector of all councilverse
