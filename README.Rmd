@@ -125,6 +125,29 @@ from retrieve_estimates import get_bbl_estimates, get_census_variables, get_geo_
 
 `get_bbl_estimates()` and `get_census_variables()` function the same in both R and Python. However, `get_geo_estimates()` has some differences in Python. Instead of having separate parameters for geo and boundary year, there are two input options for Council Districts, "councildist13" and "councildist23." Data for New York City as a whole is also available using "nyc" for geo. Otherwise, the geo input options are the same. There are also two additional parameters, `polygons` and `download`, with the defaults set at False. If `polygons` is set to True, the dataframe will include a column with the geometries associated with each geographic region. If `download` is set to True, the dataframe will automatically download as a CSV when the function runs.
 
+### Other Functions
+The following functions are standalone functions in `councilverse` used in more niche situations.
+
+#### Graphs and Tables
+`encodeGraphic()` helps convert images to raw HTML. This is useful for adding extra graphics to any HTML element in visualizations. `gt_table()` similarly converts `gt` outputs to raw HTML. 
+
+An example of both these functions being used can be found in the NYCHA Scrape repo: https://newyorkcitycouncil.github.io/NYCHA_Scrape/visualization/heat_outage_scatter.html
+
+#### Misc
+`file_name_generator()` creates file names using accepted guidelines detailed in the function's documentation. 
+```{r}
+# All fields used
+file_name_generator(order = "01", description = "acs_poverty", time_granularity = "daily", disaggregation_categories = c("cd", "race"), date_year = 2018, file_extension = ".R",... = "example")
+```
+
+`unzip_sf()` loads in shapefiles that come originally as zip files.
+```{r, eval=FALSE}
+url <- "https://www1.nyc.gov/assets/planning/download/zip/data-maps/open-data/nyct2020_22a.zip"
+# unzip the zip file
+zip <- unzip_sf(url)
+# assign to variable with read_csv or other read functions
+sf <- sf::read_sf(zip)
+```
 
  
  

@@ -15,3 +15,13 @@ The temporary path the file is stored in, ready to pass to st_read() or other
 \description{
 Helper function for loading in shapefiles that come zipped
 }
+
+\examples{
+\dontrun{
+url <- "https://www1.nyc.gov/assets/planning/download/zip/data-maps/open-data/nyct2020_22a.zip"
+# unzip the zip file
+zip <- unzip_sf(url)
+# assign to variable with read_csv or other read functions
+sf <- sf::read_sf(zip)
+}
+}
