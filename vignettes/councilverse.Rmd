@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-list.of.packages <- c("tidyverse", "leaflet")
+list.of.packages <- c("tidyverse", "leaflet", "janitor")
 
 # checks if packages has been previously installed
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
