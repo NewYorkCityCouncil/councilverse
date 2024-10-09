@@ -20,6 +20,7 @@ Imports:
     crayon,
     rstudioapi,
     utils
+    tidyverse
 Remotes: 
     newyorkcitycouncil/councildown,
     newyorkcitycouncil/councilcount
