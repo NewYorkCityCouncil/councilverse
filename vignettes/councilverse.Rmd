@@ -12,6 +12,17 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+list.of.packages <- c("tidyverse", "leaflet")
+
+# checks if packages has been previously installed
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+
+# if not, packages are installed
+if(length(new.packages)) install.packages(new.packages)
+
+# remove created variables for packages
+rm(list.of.packages,new.packages)
 ```
 
 ## Data Example {.tabset .tabset-fade}
