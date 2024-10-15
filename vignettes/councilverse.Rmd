@@ -27,9 +27,12 @@ if(length(new.packages)) install.packages(new.packages)
 rm(list.of.packages,new.packages)
 ```
 
-`Councilverse` is a set of packages that work in tandem to help us do our work quickly, consistently, and seamlessly (like tidyverse but for the NYCC Data Team). Councilverse currently includes the `councildown` and `councilcount` packages
+`Councilverse` is a set of packages that work in tandem to help us do our work quickly, consistently, and seamlessly (like tidyverse but for the NYCC Data Team). Councilverse currently includes the `councildown` and `councilcount` packages.
+
 `Councildown` implements NYCC Data Team brand styling defaults for R Markdown documents, ggplot2 plots, and leaflet maps.
+
 `Councilcount` gives easy access to population data for over 100 demographic groups across NYC's different geographies.
+
 ## Getting Started {.tabset .tabset-fade}
 
 ### Install Package
@@ -51,7 +54,7 @@ library(councilverse)
 
 ### Example Project Using Councilverse, Councildown, and CouncilCount Functions
 
-#### Load CouncilCount Data
+We will use `councilcount` data in our example of how to make plots and maps using `councilverse` functions.
 
 ```{r dpi=300, message=FALSE}
 # use councilverse::get_census_variables to check available variables
@@ -101,7 +104,7 @@ pal_council = colorBin(
   # use round to make sure data in the bottom or top bin are not left out
   bins = round(nat_intvl$brks,2),
   domain = council_geo$percent_work_from_home_workers_16_and_older,
-  # use the default NA color for councildown::colorBin
+  # use the default NA color from councildown::colorBin
   na.color = "#FFFFFF"
 )
 ```
@@ -114,7 +117,8 @@ pal_council = colorBin(
 map <- leaflet() %>%
   # use councildown::addCouncilStyle() for styling
   addCouncilStyle() %>%
-  # use councildown::addPolygons has default smoothFactor and weight
+
+  # use councildown::addPolygons default smoothFactor and weight
   addPolygons(data = council_geo,
               fillColor = ~pal_council(percent_work_from_home_workers_16_and_older),
               fillOpacity = 1,
@@ -139,6 +143,7 @@ map
 map_w_dists <- map %>%
   # use councildown::addCouncilStyle to add the boundaries to the existing map
   addCouncilStyle(add_dists = T, dist_year = "2023")
+
 # note: can access council district shapefiles directly through the package
 councildown::nycc_cd_13 # 2013 council district lines
 councildown::nycc_cd_23 # 2023 council district lines
