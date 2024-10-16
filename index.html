@@ -54,7 +54,7 @@
 </h2>
 <p>You can install the released version of <code>councilverse</code> from GitHub</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"newyorkcitycouncil/councilverse"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"newyorkcitycouncil/councilverse"</span>,build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="load-package">Load Package<a class="anchor" aria-label="anchor" href="#load-package"></a>
@@ -68,7 +68,9 @@
 <div class="section level2">
 <h2 id="vignette">Vignette<a class="anchor" aria-label="anchor" href="#vignette"></a>
 </h2>
-<p>For a demo of the 2 largest packages (<code>councildown</code> and <code>councilcount</code>) available in <code>councilverse</code>, see <code>vignettes/councilverse.Rmd</code></p>
+<p>For a demo of the 2 largest packages (<code>councildown</code> and <code>councilcount</code>) available in <code>councilverse</code>, see <code>vignettes/councilverse.Rmd</code>. Or using this cmd:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"councilverse"</span>,package<span class="op">=</span> <span class="st">"councilverse"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
@@ -98,12 +100,12 @@
 <h4 id="misc">Misc<a class="anchor" aria-label="anchor" href="#misc"></a>
 </h4>
 <p><code><a href="reference/file_name_generator.html">file_name_generator()</a></code> creates file names using accepted guidelines detailed in the function’s documentation.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># All fields used</span></span>
 <span><span class="fu"><a href="reference/file_name_generator.html">file_name_generator</a></span><span class="op">(</span>order <span class="op">=</span> <span class="st">"01"</span>, description <span class="op">=</span> <span class="st">"acs_poverty"</span>, time_granularity <span class="op">=</span> <span class="st">"daily"</span>, disaggregation_categories <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cd"</span>, <span class="st">"race"</span><span class="op">)</span>, date_year <span class="op">=</span> <span class="fl">2018</span>, file_extension <span class="op">=</span> <span class="st">".R"</span>,... <span class="op">=</span> <span class="st">"example"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "01_acs-poverty_daily_by-cd-race_2018_example.R"</span></span></code></pre></div>
 <p><code><a href="reference/unzip_sf.html">unzip_sf()</a></code> loads in shapefiles that come originally as zip files.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://www1.nyc.gov/assets/planning/download/zip/data-maps/open-data/nyct2020_22a.zip"</span></span>
 <span><span class="co"># unzip the zip file</span></span>
 <span><span class="va">zip</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/unzip_sf.html">unzip_sf</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span>
