@@ -13,7 +13,7 @@ single step.
 You can install the released version of `councilverse` from GitHub
 
 ``` r
-remotes::install_github("newyorkcitycouncil/councilverse")
+remotes::install_github("newyorkcitycouncil/councilverse",build_vignettes = TRUE)
 ```
 
 ## Load Package
@@ -30,7 +30,12 @@ library(councilverse)
 ## Vignette
 
 For a demo of the 2 largest packages (`councildown` and `councilcount`)
-available in `councilverse`, see `vignettes/councilverse.Rmd`
+available in `councilverse`, see `vignettes/councilverse.Rmd`. Or using
+this cmd:
+
+``` r
+vignette("councilverse",package= "councilverse")
+```
 
 ## Quick Start
 
