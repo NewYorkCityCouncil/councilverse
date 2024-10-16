@@ -14,9 +14,20 @@ knitr::opts_chunk$set(
   warning = FALSE, 
   message = FALSE
 )
+
+list.of.packages <- c("tidyverse", "leaflet", "janitor", "leaflet.extras")
+
+# checks if packages has been previously installed
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+
+# if not, packages are installed
+if(length(new.packages)) install.packages(new.packages)
+
+# remove created variables for packages
+rm(list.of.packages,new.packages)
 ```
 
-`Councilverse` is a set of packages that work in tandem to help us do our work quickly, consistently, and seamlessly (like tidyverse but for the NYCC Data Team). Councilverse currently includes the `councildown` and `councilcount` packages
+`Councilverse` is a set of packages that work in tandem to help us do our work quickly, consistently, and seamlessly (like tidyverse but for the NYCC Data Team). Councilverse currently includes the `councildown` and `councilcount` packages.
 
 `Councildown` implements NYCC Data Team brand styling defaults for R Markdown documents, ggplot2 plots, and leaflet maps.
 
@@ -45,14 +56,12 @@ library(councilverse)
 
 We will use `councilcount` data in our example of how to make plots and maps using `councilverse` functions.
 
-#### Load CouncilCount Data
-
 ```{r dpi=300, message=FALSE}
 # use councilverse::get_census_variables to check available variables
 census_vars <- get_census_variables()
 # use councilverse::get_geo_estimates to read in council district data for '% work from home' using 2013 council boundaries
 # borough, communitydist, councildist, nta, policeprct, schooldist geographies are available
-council_geo <- get_geo_estimates("councildist", var_codes = "DP03_0024E", boundary_year = "2013") 
+council_geo <- get_geo_estimates("councildist", var_codes = "DP03_0024E", boundary_year = "2013")  
 ```
 
 #### Visualize Data and Determine Map Breaks
@@ -65,6 +74,8 @@ nat_intvl = classInt::classIntervals(council_geo$percent_work_from_home_workers_
 ```
 
 ```{r dpi=300, out.width="75%"}
+#| fig.alt: >
+#|   Add alt text
 # visualize breaks using councilcount functions and styling
 ggplot(data = council_geo, aes(percent_work_from_home_workers_16_and_older)) +
   # use first color from nycc_palette "double" for the histogram bars
@@ -80,6 +91,7 @@ ggplot(data = council_geo, aes(percent_work_from_home_workers_16_and_older)) +
   # use councildown::theme_nycc() for styling
   theme_nycc() +
   theme(legend.position="none")
+
 ```
 
 #### Make Palette for Map
@@ -100,9 +112,12 @@ pal_council = colorBin(
 #### Create Map
 
 ```{r dpi=300}
+#| fig.alt: >
+#|   Add alt text
 map <- leaflet() %>%
   # use councildown::addCouncilStyle() for styling
   addCouncilStyle() %>%
+
   # use councildown::addPolygons default smoothFactor and weight
   addPolygons(data = council_geo,
               fillColor = ~pal_council(percent_work_from_home_workers_16_and_older),
