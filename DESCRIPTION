@@ -19,7 +19,8 @@ Imports:
     councilcount,
     crayon,
     rstudioapi,
-    utils
+    utils,
+    htmltools,
     tidyverse
 Remotes: 
     newyorkcitycouncil/councildown,
