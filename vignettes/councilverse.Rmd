@@ -33,18 +33,18 @@ rm(list.of.packages,new.packages)
 
 `Councilcount` gives easy access to population data for over 100 demographic groups across NYC's different geographies.
 
-## Getting Started {.tabset .tabset-fade}
+## Getting Started 
 
 ### Install Package
 
-```{r dpi=300, eval=FALSE}
+```{r eval=FALSE}
 # install the first time
 remotes::install_github("newyorkcitycouncil/councilverse")
 ```
 
 ### Load Package
 
-```{r dpi=300, results='hide', message=FALSE}
+```{r results='hide', message=FALSE}
 library(tidyverse)
 library(leaflet)
 # load councilverse as the last package
@@ -56,7 +56,7 @@ library(councilverse)
 
 We will use `councilcount` data in our example of how to make plots and maps using `councilverse` functions.
 
-```{r dpi=300, message=FALSE}
+```{r message=FALSE}
 # use councilverse::get_census_variables to check available variables
 census_vars <- get_census_variables()
 # use councilverse::get_geo_estimates to read in council district data for '% work from home' using 2013 council boundaries
@@ -66,7 +66,7 @@ council_geo <- get_geo_estimates("councildist", var_codes = "DP03_0024E", bounda
 
 #### Visualize Data and Determine Map Breaks
 
-```{r dpi=300}
+```{r}
 # check distribution of data (no councildown additions yet)
 wfh_hist <- ggplot(data = council_geo, aes(percent_work_from_home_workers_16_and_older)) + geom_histogram(bins = 30)
 # use fisher-jenks natural breaks after visualizing data
@@ -96,7 +96,7 @@ ggplot(data = council_geo, aes(percent_work_from_home_workers_16_and_older)) +
 
 #### Make Palette for Map
 
-```{r dpi=300}
+```{r}
 # the function councildown::colorBin has default options for palette, bins, and na.color
 pal_council = colorBin(
   # use nycc_blue, which is the default palette for councildown::colorBin
@@ -111,7 +111,7 @@ pal_council = colorBin(
 
 #### Create Map
 
-```{r dpi=300}
+```{r}
 #| fig.alt: >
 #|   Add alt text
 map <- leaflet() %>%
@@ -134,7 +134,10 @@ map <- leaflet() %>%
                        labFormat = labelFormat(suffix = "%"),
                        na.label = "NA") %>%
   # use councildown::addSourceText to add text on bottom left for source
-  addSourceText("Source: NYCC Data Team")
+  addSourceText(lat = -73.75, lon = 40.53, "Source: NYCC Data Team")
+```
+
+```{r dpi=300, out.width="100%"}
 map
 ```
 
