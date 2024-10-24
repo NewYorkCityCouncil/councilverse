@@ -96,9 +96,9 @@ Functions<a class="anchor" aria-label="anchor" href="#example-project-using-coun
 <p>We will use <code>councilcount</code> data in our example of how to
 make plots and maps using <code>councilverse</code> functions.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># use councilverse::get_census_variables to check available variables</span></span>
+<code class="sourceCode R"><span><span class="co"># use councilcount::get_census_variables to check available variables</span></span>
 <span><span class="va">census_vars</span> <span class="op">&lt;-</span> <span class="fu">get_census_variables</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co"># use councilverse::get_geo_estimates to read in council district data for '% work from home' using 2013 council boundaries</span></span>
+<span><span class="co"># use councilcount::get_geo_estimates to read in council district data for '% work from home' using 2013 council boundaries</span></span>
 <span><span class="co"># borough, communitydist, councildist, nta, policeprct, schooldist geographies are available</span></span>
 <span><span class="va">council_geo</span> <span class="op">&lt;-</span> <span class="fu">get_geo_estimates</span><span class="op">(</span><span class="st">"councildist"</span>, var_codes <span class="op">=</span> <span class="st">"DP03_0024E"</span>, boundary_year <span class="op">=</span> <span class="st">"2013"</span><span class="op">)</span>  </span></code></pre></div>
 <div class="section level4">
@@ -165,7 +165,7 @@ make plots and maps using <code>councilverse</code> functions.</p>
 <span>                       values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, opacity <span class="op">=</span> <span class="fl">1</span>, decreasing <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>                       labFormat <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/leaflet/reference/addLegend.html" class="external-link">labelFormat</a></span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">"%"</span><span class="op">)</span>,</span>
 <span>                       na.label <span class="op">=</span> <span class="st">"NA"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="co"># use councildown::addSourceText to add source text on bottom left of map</span></span>
+<span>  <span class="co"># use councildown::addSourceText to add source text on bottom right of map</span></span>
 <span>  <span class="fu">addSourceText</span><span class="op">(</span>lat <span class="op">=</span> <span class="op">-</span><span class="fl">73.75</span>, lon <span class="op">=</span> <span class="fl">40.53</span>, <span class="st">"Source: NYCC Data Team"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">map</span></span></code></pre></div>
