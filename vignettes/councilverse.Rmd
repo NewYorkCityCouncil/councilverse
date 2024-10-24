@@ -57,9 +57,9 @@ library(councilverse)
 We will use `councilcount` data in our example of how to make plots and maps using `councilverse` functions.
 
 ```{r message=FALSE}
-# use councilverse::get_census_variables to check available variables
+# use councilcount::get_census_variables to check available variables
 census_vars <- get_census_variables()
-# use councilverse::get_geo_estimates to read in council district data for '% work from home' using 2013 council boundaries
+# use councilcount::get_geo_estimates to read in council district data for '% work from home' using 2013 council boundaries
 # borough, communitydist, councildist, nta, policeprct, schooldist geographies are available
 council_geo <- get_geo_estimates("councildist", var_codes = "DP03_0024E", boundary_year = "2013")  
 ```
@@ -133,7 +133,7 @@ map <- leaflet() %>%
                        values = c(0,1), opacity = 1, decreasing = T,
                        labFormat = labelFormat(suffix = "%"),
                        na.label = "NA") %>%
-  # use councildown::addSourceText to add source text on bottom left of map
+  # use councildown::addSourceText to add source text on bottom right of map
   addSourceText(lat = -73.75, lon = 40.53, "Source: NYCC Data Team")
 ```
 
