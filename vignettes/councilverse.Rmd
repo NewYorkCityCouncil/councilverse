@@ -57,11 +57,11 @@ library(councilverse)
 We will use `councilcount` data in our example of how to make plots and maps using `councilverse` functions.
 
 ```{r message=FALSE}
-# use councilcount::get_census_variables to check available variables
-census_vars <- get_census_variables()
-# use councilcount::get_geo_estimates to read in council district data for '% work from home' using 2013 council boundaries
+# use councilcount::get_ACS_variables() to check available variables for the 2018-2022 5-Year American Community Survey.
+census_vars <- get_ACS_variables("2022")
+# use councilcount::get_geo_estimates to read in council district data for '% work from home' using 2022 data and 2013 council boundaries
 # borough, communitydist, councildist, nta, policeprct, schooldist geographies are available
-council_geo <- get_geo_estimates("councildist", var_codes = "DP03_0024E", boundary_year = "2013")  
+council_geo <- get_geo_estimates(acs_year = "2022", geo = "councildist", var_codes = "DP03_0024E", boundary_year = "2013")  
 ```
 
 #### Visualize Data and Determine Map Breaks
@@ -189,7 +189,7 @@ htmlwidgets::saveWidget(map, file=glue::glue("visuals/{map_html}"), selfcontaine
 
 `get_bbl_estimates()` -- Generates a dataframe that provides population estimates at the point level (there are also columns for various other geographies, like council district)
 
-`get_census_variables()` -- Provides information on all of the ACS demographic variables that can be accessed using `get_geo_estimates()` via variable codes
+`get_ACS_variables()` -- Provides information on all of the ACS demographic variables that can be accessed using `get_geo_estimates()` via variable codes
 
 `get_geo_estimates()` -- Creates a dataframe that provides population estimates for selected demographic variables along chosen geographic boundaries (e.g. council district, borough, etc.)
 
