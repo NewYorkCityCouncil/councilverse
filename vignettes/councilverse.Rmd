@@ -47,6 +47,8 @@ remotes::install_github("newyorkcitycouncil/councilverse",build_vignettes = TRUE
 ```{r results='hide', message=FALSE}
 library(tidyverse)
 library(leaflet)
+library(ggplot2)
+library(sf)
 # load councilverse as the last package
 # councilverse also loads councildown and councilcount
 library(councilverse)
@@ -60,7 +62,7 @@ We will use `councilcount` data in our example of how to make plots and maps usi
 # use councilcount::get_ACS_variables() to check available variables for the 2018-2022 5-Year American Community Survey.
 census_vars <- get_ACS_variables("2022")
 # use councilcount::get_geo_estimates to read in council district data for '% work from home' using 2022 data and 2013 council boundaries
-# borough, communitydist, councildist, nta, policeprct, schooldist geographies are available
+# 'borough', 'communitydist', 'councildist', 'nta', 'policeprct', and 'schooldist' geographies are available, along with citywide numbers (use 'city' as input)
 council_geo <- get_geo_estimates(acs_year = "2022", geo = "councildist", var_codes = "DP03_0024E", boundary_year = "2013")  
 ```
 
@@ -68,6 +70,7 @@ council_geo <- get_geo_estimates(acs_year = "2022", geo = "councildist", var_cod
 
 ```{r}
 # check distribution of data (basic plot, without councildown)
+names(council_geo)[names(council_geo) == 'DP03_0024PE'] <- 'percent_work_from_home_workers_16_and_older'
 wfh_hist <- ggplot(data = council_geo, aes(percent_work_from_home_workers_16_and_older)) + geom_histogram(bins = 30)
 # use fisher-jenks natural breaks after visualizing data
 nat_intvl = classInt::classIntervals(council_geo$percent_work_from_home_workers_16_and_older, n = 5, style = 'fisher')
@@ -115,26 +118,30 @@ pal_council = colorBin(
 ```{r}
 #| fig.alt: >
 #|   Add alt text
+# tranform
+council_geo <- st_transform(council_geo, crs = 4326)
+#build map
 map <- leaflet() %>%
-  # use councildown::addCouncilStyle() for leaflet styling
+  # Use councildown::addCouncilStyle() for leaflet styling
   addCouncilStyle() %>%
-  # use the councildown::addPolygons default smoothFactor and weight
+  # Use the councildown::addPolygons default smoothFactor and weight
   addPolygons(data = council_geo,
               fillColor = ~pal_council(percent_work_from_home_workers_16_and_older),
               fillOpacity = 1,
-              # use councildown::councilPopup to style popups
+              # Use councildown::councilPopup to style popups
               label = ~lapply(councilPopup(
-                paste0("<h3>", paste0("CD: ",councildist13), "</h3>",
+                paste0("<h3>", paste0("CD: ", councildist), "</h3>",
                        "<p>", paste0("Work From Home: ", percent_work_from_home_workers_16_and_older, "%"), "</p>")),
                 htmltools::HTML)) %>%
-  # use councildown::addLegend_decreasing to reverse the ordering of the legend
+  # Use councildown::addLegend_decreasing to reverse the ordering of the legend
   addLegend_decreasing(position = "topleft", pal = pal_council,
                        title = paste0("% Work From Home"),
-                       values = c(0,1), opacity = 1, decreasing = T,
+                       values = c(0, 1), opacity = 1, decreasing = TRUE,
                        labFormat = labelFormat(suffix = "%"),
                        na.label = "NA") %>%
-  # use councildown::addSourceText to add source text on bottom right of map
+  # Use councildown::addSourceText to add source text on the bottom right of the map
   addSourceText(lat = -73.75, lon = 40.53, "Source: NYCC Data Team")
+
 ```
 
 ```{r dpi=300, out.width="100%"}
@@ -187,11 +194,11 @@ htmlwidgets::saveWidget(map, file=glue::glue("visuals/{map_html}"), selfcontaine
 
 #### Population Estimates
 
-`get_bbl_estimates()` -- Generates a dataframe that provides population estimates at the point level (there are also columns for various other geographies, like council district)
+`get_bbl_estimates()` -- Generates a dataframe that provides population estimates at the BBL level. There are also columns for latitude and longitude, which allow for spatial joins if aggregation to other geography levels is desired.
 
-`get_ACS_variables()` -- Provides information on all of the ACS demographic variables that can be accessed using `get_geo_estimates()` via variable codes
+`get_ACS_variables()` -- Provides information on all of the available ACS demographic variables that can be accessed via get_geo_estimates() for a specified survey year.
 
-`get_geo_estimates()` -- Creates a dataframe that provides population estimates for selected demographic variables along chosen geographic boundaries (e.g. council district, borough, etc.)
+`get_geo_estimates()` -- Creates a dataframe that provides population estimates for selected demographic variables along chosen geographic boundaries (e.g. council district, borough, etc.) for a chosen ACS 5-Year survey.
 
 ### CouncilDown
 
