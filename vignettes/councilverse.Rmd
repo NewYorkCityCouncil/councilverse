@@ -148,15 +148,29 @@ map <- leaflet() %>%
 map
 ```
 
-```{r eval=FALSE}
+```{r eval=TRUE}
 # can add 2013 or 2023 council district boundaries to the map
 map_w_dists <- map %>%
   # use councildown::addCouncilStyle to add the boundaries to the existing map
-  addCouncilStyle(add_dists = T, dist_year = "2023")
+  addCouncilStyle(add_dists = T, dist_year = "2023") %>%
+  
+  # use councildown::add_council_basemaps to add background maps
+  add_council_basemaps(
+    selection = c(1, 2, 3, 4, 5, 6), # DEFAULT: All six selected
+    custom_names = c("Light", "Dark", "Streets", "Physical", "Satellite", "Basic"), # DEFAULT: Default names
+    control_position = "bottomleft", # DEFAULT: Bottom-left position
+    control_collapsed = TRUE # DEFAULT: Collapsed (TRUE)
+  )
+```
 
+```{r eval=FALSE}
 # note: can access council district shapefiles directly through the package
 councildown::nycc_cd_13 # 2013 council district lines
 councildown::nycc_cd_23 # 2023 council district lines
+```
+
+```{r dpi=300, out.width="100%"}
+map_w_dists
 ```
 
 #### Save Map
@@ -229,6 +243,8 @@ htmlwidgets::saveWidget(map, file=glue::glue("visuals/{map_html}"), selfcontaine
 `mapshot()` -- Saves `leaflet` maps as a static png image and defaults map saves with standardized `width`, `height`, and `zoom`
 
 `addLegend_decreasing()` -- The `leaflet` function `addLegend` but with the option for the highest number to be at the top of the legend
+
+`add_council_basemaps()` -- appends standard background map tiles to your `leaflet` map.
 
 #### Data
 
