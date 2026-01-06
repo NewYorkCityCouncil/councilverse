@@ -148,7 +148,7 @@ map <- leaflet() %>%
 map
 ```
 
-```{r eval=FALSE}
+```{r eval=TRUE}
 # can add 2013 or 2023 council district boundaries to the map
 map_w_dists <- map %>%
   # use councildown::addCouncilStyle to add the boundaries to the existing map
@@ -161,7 +161,9 @@ map_w_dists <- map %>%
     control_position = "bottomleft", # DEFAULT: Bottom-left position
     control_collapsed = TRUE # DEFAULT: Collapsed (TRUE)
   )
+```
 
+```{r eval=FALSE}
 # note: can access council district shapefiles directly through the package
 councildown::nycc_cd_13 # 2013 council district lines
 councildown::nycc_cd_23 # 2023 council district lines
