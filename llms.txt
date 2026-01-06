@@ -1,0 +1,119 @@
+# Overview
+
+The `councilverse` is a set of packages that work in tandem to assist
+the NYCC’s data team in doing their work. This package is designed to
+make it easy to install and load multiple ‘councilverse’ packages in a
+single step.
+
+## Installation
+
+You can install the released version of `councilverse` from GitHub
+
+``` r
+remotes::install_github("newyorkcitycouncil/councilverse",build_vignettes = TRUE)
+```
+
+## Load Package
+
+Note that the order of loading the libraries is important. Make sure to
+load `councilverse` last.
+
+``` r
+library(tidyverse)
+# load last
+library(councilverse)
+```
+
+## Vignette
+
+For a demo of the 2 largest packages (`councildown` and `councilcount`)
+available in `councilverse`, see `vignettes/councilverse.Rmd`. Or using
+this cmd:
+
+``` r
+vignette("councilverse",package= "councilverse")
+```
+
+## Quick Start
+
+First load the `councilverse` package as above.
+
+### Councildown
+
+The `councildown` package implements style guide compliant defaults for
+R Markdown documents, `ggplot2` plots, and `leaflet` maps. For more
+information, please visit the package directly:
+<https://github.com/NewYorkCityCouncil/councildown/> . The
+`councilverse` vignette goes through an example using most of
+`councildown`’s available functions.
+
+### Councilcount
+
+The `councilcount` package allows easy access to ACS population data
+across various geographic boundaries. For the boundaries that are not
+native to the ACS, such as council districts, an estimate is provided.
+For more information, please visit the package directly:
+<https://github.com/NewYorkCityCouncil/councilcount/> . The
+`councilverse` vignette goes through an example using most of
+`councilcount`’s available functions.
+
+### Other Functions
+
+The following functions are standalone functions in `councilverse` used
+in more niche situations.
+
+#### Graphs and Tables
+
+[`encodeGraphic()`](https://newyorkcitycouncil.github.io/councilverse/reference/encodeGraphic.md)
+helps convert images to raw HTML. This is useful for adding extra
+graphics to any HTML element in visualizations.
+[`gt_table()`](https://newyorkcitycouncil.github.io/councilverse/reference/gt_table.md)
+similarly converts `gt` outputs to raw HTML.
+
+An example of both these functions being used can be found in the NYCHA
+Scrape repo:
+<https://newyorkcitycouncil.github.io/NYCHA_Scrape/visualization/heat_outage_scatter.html>
+
+#### Misc
+
+[`file_name_generator()`](https://newyorkcitycouncil.github.io/councilverse/reference/file_name_generator.md)
+creates file names using accepted guidelines detailed in the function’s
+documentation.
+
+``` r
+# All fields used
+file_name_generator(order = "01", description = "acs_poverty", time_granularity = "daily", disaggregation_categories = c("cd", "race"), date_year = 2018, file_extension = ".R",... = "example")
+#> [1] "01_acs-poverty_daily_by-cd-race_2018_example.R"
+```
+
+[`unzip_sf()`](https://newyorkcitycouncil.github.io/councilverse/reference/unzip_sf.md)
+loads in shapefiles that come originally as zip files.
+
+``` r
+url <- "https://www1.nyc.gov/assets/planning/download/zip/data-maps/open-data/nyct2020_22a.zip"
+# unzip the zip file
+zip <- unzip_sf(url)
+# assign to variable with read_csv or other read functions
+sf <- sf::read_sf(zip)
+```
+
+# Package index
+
+## All functions
+
+- [`councilverse_packages()`](https://newyorkcitycouncil.github.io/councilverse/reference/councilverse_packages.md)
+  : List all packages imported by councilverse
+- [`encodeGraphic()`](https://newyorkcitycouncil.github.io/councilverse/reference/encodeGraphic.md)
+  : Graphics to raw HTML
+- [`file_name_generator()`](https://newyorkcitycouncil.github.io/councilverse/reference/file_name_generator.md)
+  : Helper function for creating file names using accepted guidelines
+- [`gt_table()`](https://newyorkcitycouncil.github.io/councilverse/reference/gt_table.md)
+  : gt table to raw HTML helper function
+- [`unzip_sf()`](https://newyorkcitycouncil.github.io/councilverse/reference/unzip_sf.md)
+  : Helper function for loading in shapefiles that come zipped
+
+# Articles
+
+### All vignettes
+
+- [councilverse](https://newyorkcitycouncil.github.io/councilverse/articles/councilverse.md):
