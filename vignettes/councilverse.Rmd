@@ -149,10 +149,10 @@ map
 ```
 
 ```{r eval=TRUE}
-# can add 2013 or 2023 council district boundaries to the map
+# can add 2013 or 2023 council district boundaries to the map, but we will do 2013 here to stay consistent with our geo estimates
 map_w_dists <- map %>%
   # use councildown::addCouncilStyle to add the boundaries to the existing map
-  addCouncilStyle(add_dists = T, dist_year = "2023") %>%
+  addCouncilStyle(add_dists = T, dist_year = "2013") %>%
   
   # use councildown::add_council_basemaps to add background maps
   add_council_basemaps(
