@@ -61,9 +61,9 @@ We will use `councilcount` data in our example of how to make plots and maps usi
 ```{r message=FALSE}
 # use councilcount::get_ACS_variables() to check available variables for the 2018-2022 5-Year American Community Survey.
 census_vars <- get_ACS_variables("2022")
-# use councilcount::get_geo_estimates to read in council district data for '% work from home' using 2022 data and 2013 council boundaries
+# use councilcount::get_geo_estimates to read in council district data for '% work from home' using 2022 data and 2023 council boundaries
 # 'borough', 'communitydist', 'councildist', 'nta', 'policeprct', and 'schooldist' geographies are available, along with citywide numbers (use 'city' as input)
-council_geo <- get_geo_estimates(acs_year = "2022", geo = "councildist", var_codes = "DP03_0024E", boundary_year = "2013")  
+council_geo <- get_geo_estimates(acs_year = "2022", geo = "councildist", var_codes = "DP03_0024E", boundary_year = "2023")  
 ```
 
 #### Visualize Data and Determine Map Breaks
@@ -149,7 +149,7 @@ map
 ```
 
 ```{r eval=TRUE}
-# can add 2013 or 2023 council district boundaries to the map
+# can add 2013 or 2023 council district boundaries to the map, but we will do 2023 here to stay consistent with our geo estimates
 map_w_dists <- map %>%
   # use councildown::addCouncilStyle to add the boundaries to the existing map
   addCouncilStyle(add_dists = T, dist_year = "2023") %>%
